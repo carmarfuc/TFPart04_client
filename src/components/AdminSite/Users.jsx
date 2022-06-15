@@ -8,6 +8,8 @@ export default function Users() {
   const dispatch = useDispatch()
 
   const users = useSelector(state => state.users)
+  let URL;
+  process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
 
 
   useEffect(() => {
@@ -15,9 +17,9 @@ export default function Users() {
   }, [dispatch]);
 
 
-  const getUser= () => {
+  const getUser = () => {
     return function (dispatch) {
-      return axios.get(`http://localhost:3001/user`)
+      return axios.get(`${URL}/user`)
         .then(resp => dispatch({ type: 'GET_USERS', payload: resp.data }))
         .catch(error => console.log('Action error in getProducts: ', error))
     }
