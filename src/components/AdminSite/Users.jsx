@@ -9,7 +9,7 @@ export default function Users() {
 
   const users = useSelector(state => state.users)
 
-  
+
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
@@ -69,7 +69,7 @@ export default function Users() {
                     <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
                   </td>
                       <th>
-                        <button id={u.mail} name={u.usertype} onClick={e => handlePermission(e)}>Change to {u.usertype === 'Admin' ? 'User' : 'Admin'}</button>
+                        <button id={u.email} name={u.usertype} onClick={e => handlePermission(e)}>Change to {u.usertype === 'Admin' ? 'User' : 'Admin'}</button>
                       </th>
                 </tr>
               })
