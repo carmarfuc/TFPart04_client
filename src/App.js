@@ -56,7 +56,7 @@ function App() {
         <Route path='/creationform' element={<ProductCreationForm />} />
         <Route path='/modificationForm/:id' element={<ModificationForm />} />
         <Route path='/successOrder' element={<CheckoutCart />} />
-        <Route path='/password/:mail' element={<Password />} />{/*AGCH*/}
+        <Route path='/password/supersecreturl/:mail' element={<Password />} />{/*AGCH*/}
         <Route path='*' element={<NotFound />} />
       </Routes>
       {
