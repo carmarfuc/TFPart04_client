@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { changeStatus,filterOrder,getorder,filterStatus } from "../../redux/actions";
+import { changeStatus,filterOrder,getorder,filterStatus, orderStatus} from "../../redux/actions";
 import axios from "axios";
 
 
@@ -13,10 +13,10 @@ export default function UserOrder() {
   const dispatch = useDispatch();
   // const filteredOrders = useSelector((state) => state.filteredOrders);
   const UserOrder = useSelector((state)=>state.orders)
-  const status = useSelector((state)=>state.orderStatus)
+  const status = useSelector((state)=>state.filteredOrders.map(u=>u.status))
   const statusfiltered = useSelector((state) => state.statusfiltered);
   const orders = statusfiltered.length ? statusfiltered:UserOrder.filter(u=>u.userEmail === email);
-  const state = useSelector(state => state)
+
 
   useEffect(() => {
     dispatch(filterOrder(email));
@@ -31,6 +31,7 @@ export default function UserOrder() {
     setTimeout(() => {
       dispatch(getorder())
       dispatch(filterOrder(email))
+      orderStatus()
     }, 100);
 
   }
