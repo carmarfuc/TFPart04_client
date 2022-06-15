@@ -17,7 +17,9 @@ import {
   GET_ORDERS,
   GET_ORDERS_ID,
   GET_USER_REVIEW,
-  GET_USER_ORDERS
+  GET_USER_ORDERS,
+  FILTER_ORDER,
+  ORDER_STATUS
 } from "./actions"
 
 const initialState = {
@@ -32,7 +34,9 @@ const initialState = {
   usertype: '',
   orders:[],
   userOrders:[],
+  filteredOrders:[],
   orderDet:[],
+  orderStatus:[],
   userReview:[]
 }
 
@@ -139,6 +143,31 @@ export function rootReducer(state = initialState, { type, payload }) {
     
     case GET_USER_ORDERS:
       return{...state, userOrders:payload}
+    
+    case FILTER_ORDER:
+        return {...state,filteredOrders:state.userOrders.filter(u=>u.userEmail === payload) }
+
+
+    case ORDER_STATUS:
+      {
+        const orders= state.userOrders.map(o=>o.status)
+        console.log("orders",orders)
+
+        let arreglounico=[];
+
+        for (let i = 0; i < orders.length; i++) {
+          if(arreglounico.includes(orders[i])){
+            console.log("se repite " + orders[i])
+          }
+          else{
+            arreglounico.push(orders[i])
+            console.log(arreglounico)
+          }
+          
+        }
+      return {...state,orderStatus:arreglounico}
+    }
+
 
     default: return state;
   }

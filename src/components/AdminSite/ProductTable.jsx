@@ -7,13 +7,14 @@ import axios from "axios";
 
 
 
-export default function ProductTable() {
+export default function ProductTable({allProducts}) {
   const dispatch = useDispatch();
-  const allProducts = useSelector((state) => state.products);
+  const allProduct = allProducts;
   const filteredProducts = useSelector(state => state.filteredProducts);
-  const products = filteredProducts.length ? filteredProducts : allProducts;
+  const products = filteredProducts.length ? filteredProducts : allProduct;
   const [Alert, setAlert] = useState(false);
   
+  console.log("filter",filteredProducts)
 
   async function deletePost(id) {
     await axios.delete(`http://localhost:3001/product/delete/${id}`);

@@ -1,58 +1,65 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getuserOrders } from "../../redux/actions";
+import { changeStatus,filterOrder,getuserOrders } from "../../redux/actions";
 import axios from "axios";
 
 export default function UserOrder() {
   const { email } = useParams();
   const dispatch = useDispatch();
-  const userOrder = useSelector((state) => state.userOrders);
-  const ordersheads = userOrder.orders_heads;
-  const [Alert, setAlert] = useState({});
-  console.log(ordersheads);
+  const filteredOrders = useSelector((state) => state.filteredOrders);
+  const status = useSelector((state)=>state.orderStatus)
 
-  console.log(Alert);
 
   useEffect(() => {
-    dispatch(getuserOrders(email));
-  }, [dispatch]);
+    dispatch(filterOrder(email));
+  }, [dispatch])
 
-  const handlechangeStatus = (e) => {
-    // setStatus({})
+  const handlechangeStatus = (id,e) => {
+    if(e === "cancelle"){
+      changeStatus({orderId:id,status:e}) 
+      dispatch(getuserOrders());
+    }
+    if(e === "pending"){
+      changeStatus({orderId:id,status:e})
+      dispatch(getuserOrders());
+    }
+    if(e === "payed"){
+      changeStatus({orderId:id,status:e})
+      dispatch(getuserOrders());
+    }
+    
   };
 
   return (
-    <div class="overflow-x-auto w-full">
-      <div className="grid justify-items-center">
-        <div className="grid justify-items-center rounded overflow-hidden border w-full lg:w-6/12 md:w-6/12 bg-white mx-3 md:mx-0 lg:mx-0">
-          <div className="w-full flex justify-between p-3">
-            <div className="flex"></div>
-            <span className="px-2 hover:bg-gray-300 cursor-pointer rounded">
-              <i className="fas fa-ellipsis-h pt-2 text-lg"></i>
-            </span>
-          </div>
-          <div className="px-3 pb-2">
-            <div className="pt-2">
-              <i className="far fa-heart cursor-pointer"></i>
-              <h1 className="text-xl text-orange-700 font-bold">
-                {userOrder.firstName} {userOrder.lastName}
-              </h1>
-              <hr />
-            </div>
-            <br></br>
-            <div className="grid justify-items-start bg-gray-100 p-4 border shadow-md">
-              <div className="text-md mb-2 text-orange-700 font-bold">
-                Orders:
-              </div>
-              <div className="pt-1">
-                <div className="mb-2 text-sm">{ordersheads.length}</div>
-              </div>
-            </div>
-          </div>
+    <div class="overflow-x-auto w-full h-1/2" >
+      <div className="px-3 pb-2">
+        <div className="pt-2">
+          <i className="far fa-heart cursor-pointer"></i>
+          <h1 className="text-xl text-orange-700 font-bold">{email}</h1>
+          <hr/>
         </div>
+        <br></br>
       </div>
+
+      <nav>
+            <select
+                class="select select-bordered select-sm w-60 max-w-xs select-primary mr-10 bg-neutral"
+                name='filterByCategory'
+                defaultValue={true}
+                // onChange={handleSelectCategory}
+            >
+                <option disabled value='true' selected>Filter status</option>
+                <option value='all'>All</option>
+                {/* {status ? status.map((ctgry, i) => {
+                    return (
+                        <option key={i} value={ctgry.name}>{ctgry.name}</option>
+                    )
+                }) : ''} */}
+            </select>
+      </nav> 
+      <br></br>
       <table class="table w-full">
         {/* <!-- head --> */}
         <thead>
@@ -66,46 +73,52 @@ export default function UserOrder() {
         </thead>
 
         <tbody>
-          {ordersheads.length > 1 &&
-            ordersheads.map(o => {
-              return (
-                <tr>
-                  <td>
-                    <div class="flex items-center space-x-3">
-                      <td>
-                        <div class="font-bold">
-                          {o.orders_pos.length} Products
-                        </div>
-                      </td>
-                    </div>
-                  </td>
-                  <td>{o.total} ARS </td>
-                  <td>{o.status}</td>
-                  <td>
-                    <button>hola</button>
-                  </td>
-                </tr>
-              );
-            })}
-
-          {ordersheads.length < 2 && (
-            <tr>
-            <td>
-              <div class="flex items-center space-x-3">
+          {filteredOrders.map((o) => {
+            return (
+              <tr>
                 <td>
-                  <div class="font-bold">
-                    {ordersheads.orders_pos.length} Products
+                  <div class="flex items-center space-x-3">
+                    <td>
+                      <NavLink to={`/OrderDetail/${o.id}`}>
+                      <div class="font-bold">
+                        {o.orders_pos.length} Products
+                      </div>
+                      </NavLink>
+                    </td>
                   </div>
                 </td>
-              </div>
-            </td>
-            <td>{ordersheads.total} ARS </td>
-            <td>{ordersheads.status}</td>
-            <td>
-              <button>hola</button>
-            </td>
-          </tr>
-          )}
+                <td>{o.total} ARS </td>
+                <td>{o.status}</td>
+                <td>
+                  <div class="dropdown dropdown-hover">
+                    <label tabindex="0" class="btn m-1">
+                      Change Status
+                    </label>
+                    <ul
+                      tabindex="0"
+                      class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                    >
+                      <li>
+                        <button onClick={() => handlechangeStatus(o.id,"cancelle")}>
+                          cancelle
+                        </button>
+                      </li>
+                      <li>
+                        <button onClick={() => handlechangeStatus(o.id,"pending")}>
+                          pending
+                        </button>
+                      </li>
+                      <li>
+                        <button onClick={() => handlechangeStatus(o.id,"payed")}>
+                          payed
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

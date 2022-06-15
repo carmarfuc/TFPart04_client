@@ -1,14 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProductTable from "./ProductTable";
 import CreateCategory  from '../CreateCategory/CreateCategory';
 import ProductCreationForm from '../ProductCreationForm/ProductCreationForm';
 import Users from "./Users";
 import Orders from '../Orders/Orders'
 import Search  from "../Search/Search";
+import { getuserOrders,orderStatus,getorder} from "../../redux/actions";
+import { useDispatch,useSelector } from "react-redux";
+import axios from "axios";
 
 
 export default function AdminPage(props) {
+  const dispatch = useDispatch();
   const [Page, setPage] = useState('course');
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    dispatch(orderStatus());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getuserOrders());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getorder());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      const response = await axios.get(`http://localhost:3001/product/all`);
+      setProducts(response.data);
+    }
+    loadProducts();
+  }, [products.length]);
 
 
   function HandlePage(e){
@@ -24,7 +49,7 @@ export default function AdminPage(props) {
   return (
     <div>
     <div class="flex flex-row-reverse">
-    <div class="flex flex-row"><Search/></div>
+    <div class="flex flex-row"><Search allProducts={products}/></div>
       </div>
       <div class="flex flex-row">
         {/* //------------------------- menu lateral ------------------------------------- */}
@@ -127,7 +152,7 @@ export default function AdminPage(props) {
         <div class="flex-auto">
           {Page === 'course' &&
           <div>
-            <ProductTable/>
+            <ProductTable allProducts={products}/>
           </div> }
           {Page === 'CreateCategory' &&
               <div>
