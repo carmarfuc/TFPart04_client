@@ -17,6 +17,7 @@ export default function UserOrder() {
   const statusfiltered = useSelector((state) => state.statusfiltered);
   const orders = statusfiltered.length ? statusfiltered:UserOrder.filter(u=>u.userEmail === email);
 
+  
 
   useEffect(() => {
     dispatch(filterOrder(email));
@@ -31,7 +32,6 @@ export default function UserOrder() {
     setTimeout(() => {
       dispatch(getorder())
       dispatch(filterOrder(email))
-      orderStatus()
     }, 100);
 
   }
@@ -87,6 +87,7 @@ export default function UserOrder() {
             <th>Products</th>
             <th>Price</th>
             <th>Status</th>
+            <th>Date</th>
             <th>Actions</th>
             <th></th>
           
@@ -110,6 +111,7 @@ export default function UserOrder() {
                 </td>
                 <td>{o.total} ARS </td>
                 <td>{o.status}</td>
+                <td>{o.date.slice(0, 10)}</td>
                 <td>
                   <div class="dropdown dropdown-hover">
                     <label tabindex="0" class="btn m-1">
