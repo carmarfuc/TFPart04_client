@@ -11,11 +11,11 @@ export default function Users() {
 
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getUser());
   }, [dispatch]);
 
 
-  const getProducts = () => {
+  const getUser= () => {
     return function (dispatch) {
       return axios.get(`http://localhost:3001/user`)
         .then(resp => dispatch({ type: 'GET_USERS', payload: resp.data }))
@@ -27,14 +27,21 @@ export default function Users() {
     console.log(e)
     if (e.target.name === 'Admin') {
       dispatch(changePermission({ email: e.target.id, usertype: 'User' }))
+      setTimeout(() => {
+        dispatch(getUser())
+      }, 100);
+      dispatch(getUser())
     } else {
       dispatch(changePermission({ email: e.target.id, usertype: 'Admin' }))
+      setTimeout(() => {
+        dispatch(getUser())
+      }, 100);
+      dispatch(getUser())
     }
   }
 
   return (
     <div>
-      <button onClick={() => dispatch(getProducts())}>Refresh users</button>
       <div className="overflow-x-auto w-full z-50">
         <table className="table w-full">
           {/* <!-- head --> */}

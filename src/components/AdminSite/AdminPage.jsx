@@ -5,7 +5,7 @@ import ProductCreationForm from '../ProductCreationForm/ProductCreationForm';
 import Users from "./Users";
 import Orders from '../Orders/Orders'
 import Search  from "../Search/Search";
-import { getuserOrders,orderStatus,getorder} from "../../redux/actions";
+import { getorder} from "../../redux/actions";
 import { useDispatch,useSelector } from "react-redux";
 import axios from "axios";
 import Categories from "../CreateCategory/Categories";
@@ -19,17 +19,11 @@ export default function AdminPage(props) {
 
   console.log("cat",category)
 
-  useEffect(() => {
-    dispatch(orderStatus());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(getuserOrders());
-  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getorder());
   }, [dispatch]);
+
 
   useEffect(() => {
     const loadProducts = async () => {

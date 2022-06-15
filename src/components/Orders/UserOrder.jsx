@@ -2,17 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { changeStatus,filterOrder,getuserOrders,filterStatus } from "../../redux/actions";
+import { changeStatus,filterOrder,getorder,filterStatus, orderStatus} from "../../redux/actions";
 import axios from "axios";
+
+
+
 
 export default function UserOrder() {
   const { email } = useParams();
   const dispatch = useDispatch();
-  const filteredOrders = useSelector((state) => state.filteredOrders);
-  const status = useSelector((state)=>state.orderStatus)
+  // const filteredOrders = useSelector((state) => state.filteredOrders);
+  const UserOrder = useSelector((state)=>state.orders)
+  const status = useSelector((state)=>state.filteredOrders.map(u=>u.status))
   const statusfiltered = useSelector((state) => state.statusfiltered);
-  const orders = statusfiltered.length ? statusfiltered:filteredOrders;
-  const state = useSelector(state => state)
+  const orders = statusfiltered.length ? statusfiltered:UserOrder.filter(u=>u.userEmail === email);
+
+  
 
   useEffect(() => {
     dispatch(filterOrder(email));
@@ -23,18 +28,26 @@ export default function UserOrder() {
     console.log(e.target.value)
 };
 
+  const refresh = ()=>{
+    setTimeout(() => {
+      dispatch(getorder())
+      dispatch(filterOrder(email))
+    }, 100);
+
+  }
+
   const handlechangeStatus = (id,e) => {
     if(e === "cancelle"){
       changeStatus({orderId:id,status:e}) 
-      dispatch(getuserOrders());
+      refresh()
     }
     if(e === "pending"){
       changeStatus({orderId:id,status:e})
-      dispatch(getuserOrders());
+      refresh()
     }
     if(e === "payed"){
       changeStatus({orderId:id,status:e})
-      dispatch(getuserOrders());
+      refresh()
     }
     
   };
@@ -74,8 +87,10 @@ export default function UserOrder() {
             <th>Products</th>
             <th>Price</th>
             <th>Status</th>
+            <th>Date</th>
             <th>Actions</th>
             <th></th>
+          
           </tr>
         </thead>
 
@@ -96,6 +111,7 @@ export default function UserOrder() {
                 </td>
                 <td>{o.total} ARS </td>
                 <td>{o.status}</td>
+                <td>{o.date.slice(0, 10)}</td>
                 <td>
                   <div class="dropdown dropdown-hover">
                     <label tabindex="0" class="btn m-1">

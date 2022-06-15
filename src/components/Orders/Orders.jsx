@@ -9,7 +9,19 @@ import axios from "axios";
 export default function Orders() {
   const dispatch = useDispatch();
   const allorders = useSelector((state) => state.orders);
+  const email = allorders.map(o=>o.userEmail)
+  let arreglounico=[];
 
+  console.log(arreglounico)
+
+  for (let i = 0; i < email.length; i++) {
+    if(arreglounico.includes(email[i])){
+      console.log("se repite " + email[i])
+    }
+    else{
+      arreglounico.push(email[i])
+    }
+  }
 
 
 
@@ -28,8 +40,8 @@ export default function Orders() {
         </thead>
         <tbody>
           {/* <!-- row 1 --> */}
-          {allorders &&
-            allorders.map((order) => {
+          {arreglounico &&
+            arreglounico.map((order) => {
               return (
                   <tr>
                     <td>
