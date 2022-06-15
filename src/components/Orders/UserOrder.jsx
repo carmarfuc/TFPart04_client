@@ -12,7 +12,7 @@ export default function UserOrder() {
   const status = useSelector((state)=>state.orderStatus)
   const statusfiltered = useSelector((state) => state.statusfiltered);
   const orders = statusfiltered.length ? statusfiltered:filteredOrders;
-
+  const state = useSelector(state => state)
 
   useEffect(() => {
     dispatch(filterOrder(email));

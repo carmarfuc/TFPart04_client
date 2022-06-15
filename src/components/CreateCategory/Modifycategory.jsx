@@ -1,18 +1,28 @@
 import React, { useState } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate} from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { updateCategorie } from '../../redux/actions';
-import { validate } from '../../utils/validate';
 import styles from './CreateCategory.module.css'
 
 
 export default function ModifyCategory() {
+  const navigate = useNavigate();
   const {idCategori} = useParams();
   const dispatch = useDispatch();
   const [category, setCategory] = useState({})
   const [errors, setErrors] = useState({});
 
 
+  const validate = (input) => { //create category validation
+    let errors = {}
+  
+    if(!input.name) errors.name = 'Must have a name'
+    let pattern = /^[a-zA-Z0-9]*$/
+    if(!pattern.test(input.name)) errors.name = 'Cannot contain special characters'
+  
+    if(!input.description) errors.description = 'Must have a description'
+  
+    return errors}
 
   function handleChange(e) {
     let item = e.target.name
@@ -29,6 +39,7 @@ export default function ModifyCategory() {
     
     dispatch(updateCategorie(idCategori,category))
     document.getElementById('Update').reset()
+    navigate("/Admin")
   }
 
   return (
