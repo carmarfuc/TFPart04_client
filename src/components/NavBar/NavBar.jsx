@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon, ShoppingCartIcon } from '@heroicons/react/outline'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { logout } from '../../redux/actions'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
@@ -16,22 +16,25 @@ export default function NavBarBro() {
   let numberOfCartItems = useSelector(state => state.cartItems)
   useEffect(() => {
   }, [numberOfCartItems])
-  const navigate = useNavigate();
   let dataCart = JSON.parse(localStorage.getItem("cartProduct"));
 
   let navigation;
-  localStorage.user ? navigation = [
+  localStorage.user ?
+  localStorage.usertype === 'Admin' ?
+  navigation = [
+    { name: 'Home', href: '/home' },
+    { name: 'Admin panel', href: '/admin' },
+  ]
+  :navigation = [
     { name: 'Home', href: '/home' },
     { name: 'Cart', href: '/cart' },
-  ] : navigation = [
+    { name: 'User panel', href: '/user' },
+  ]
+  :navigation = [
     { name: 'Login', href: '/' },
     { name: 'Home', href: '/home' },
     { name: 'Cart', href: '/cart' },
   ]
-
-  if (localStorage.usertype === 'Admin') {
-    navigation.push({ name: 'Admin', href: '/admin' })
-  }
 
   return (
     <Disclosure as="nav" className="bg-primary h-20 mb-2">
