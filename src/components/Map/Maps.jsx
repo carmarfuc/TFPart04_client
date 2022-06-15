@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import GoogleMaps from "simple-react-google-maps";
+import axios from "axios";
 
-const sucursal = [
-  {city:"cali",coorCity:{lat: 3.4142326,lng: -76.5372511},name:"stadium",lat: 3.4217317, lng: -76.5344328},
-  {city:"cali",coorCity:{lat: 3.4168994,lng: -76.5260932},name:"el dorado",lat: 3.4198722, lng: -76.5276451},
-  {city:"cali",coorCity:{lat: 3.4168994,lng: -76.5260932},name:"paso ancho",lat: 3.4162782, lng: -76.5289899}
-]//{lat: 3.4168994,lng: -76.5260932}
+async function location(){
+  return await axios.get(`http://localhost:3001/location`)
+    .then(resp => sucursal = resp.data )
+    .then(() => {
+      suc = sucursal && sucursal.map(s=>{return {lat:s.lat,lng:s.lng}})
+    } )
+    .catch(error => console.log('Error: ', error))
+}
+
+let sucursal,suc,p1=location()
 
 export default function Maps(){
   const [sucursals, setSucursals] = useState(0);
@@ -21,8 +27,10 @@ export default function Maps(){
         apiKey={"AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik"}
         style={{ height: "400px", width: "100%" }}
         zoom={12}
-        center={sucursal[sucursals].coorCity}
-        markers={sucursal.map(s=>{return {lat:s.lat,lng:s.lng}})}
+        
+        center={{lat: 3.4168994,lng: -76.5260932}}
+        markers={suc}
+        
       />
     </div>
   );
