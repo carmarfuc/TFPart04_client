@@ -1,15 +1,15 @@
 import React from 'react'
-import { getUserOrders } from '../../redux/actions'
+import { useDispatch } from "react-redux";
+import { getuserOrders } from '../../redux/actions'
 
 const UserPage = () => {
+  const dispatch = useDispatch()
 
   const user = localStorage.getItem("user")
-  console.log('User: ',user)
 
-  // async function handleGetOrders(user) {
-  //   const orders = await dispatch(getUserOrders(user))
-  //   console.log('Orders: ',orders)
-  // }
+  async function handleGetOrders(user) {
+    const orders = await dispatch(getuserOrders(user))
+  }
 
   return (
     <div>

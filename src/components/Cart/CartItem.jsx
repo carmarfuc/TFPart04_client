@@ -121,7 +121,7 @@ const CartItem = () => {
               <div className="grid grid-cols-2 ">
                 <div className="grid justify-items-center m-3">
                   <form onSubmit={handleSubmit} className=''>
-                    <button className="btn btn-primary w-40" type='submit' onClick={() => MpPaymentHandler({ cookies })}>Buy</button>
+                    <button className="btn btn-primary w-40" type='submit' onClick={() => MpPaymentHandler(dataCart)}>Buy</button>
                   </form>
                 </div>
                 <div>
