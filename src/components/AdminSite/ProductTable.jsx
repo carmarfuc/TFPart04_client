@@ -1,4 +1,4 @@
-import React, { useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/actions";
 import { NavLink } from "react-router-dom";
@@ -7,26 +7,19 @@ import axios from "axios";
 
 
 
-export default function ProductTable({allProducts}) {
+export default function ProductTable({ allProducts }) {
   const dispatch = useDispatch();
   const allProduct = allProducts;
   const filteredProducts = useSelector(state => state.filteredProducts);
   const products = filteredProducts.length ? filteredProducts : allProduct;
-  const [Alert, setAlert] = useState(false);
-  
-  console.log("filter",filteredProducts)
+
+  let URL;
+  process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
 
   async function deletePost(id) {
-    await axios.delete(`http://localhost:3001/product/delete/${id}`);
-    alerta();
-  }
-  
-  function alerta(){
-    setAlert(true);
-    setTimeout(function(){
-      setAlert(false);
-      window.location.reload(true);
-  }, 1000);
+    await axios.delete(`${URL}/product/delete/${id}`);
+    alert('Delete successful');
+    window.location.reload(true);
   }
 
   useEffect(() => {
@@ -63,9 +56,9 @@ export default function ProductTable({allProducts}) {
                         </div>
                       </div>
                       <div>
-                      <NavLink to={`/details/${product.id}`}>
-                        <div class="font-bold">{product.name}</div>
-                      </NavLink>
+                        <NavLink to={`/details/${product.id}`}>
+                          <div class="font-bold">{product.name}</div>
+                        </NavLink>
                       </div>
                     </div>
                   </td>
@@ -77,25 +70,23 @@ export default function ProductTable({allProducts}) {
                     </NavLink>
                   </th>
                   <th>
-                        <button onClick={() => deletePost(product.id)}>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-6 w-6 btn-ghost "
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                            />
-                          </svg>
-                        </button>
-
-                      </th>
-
+                    <button onClick={() => deletePost(product.id)}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6 btn-ghost "
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
+                      </svg>
+                    </button>
+                  </th>
                 </tr>
               );
             })}

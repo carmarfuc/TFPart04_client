@@ -26,10 +26,13 @@ export const GET_USER_ORDERS = "GET_USER_ORDERS";
 export const FILTER_ORDER = "FILTER_ORDER";
 export const ORDER_STATUS = "ORDER_STATUS";
 export const FILTER_STATUS = "FILTER_STATUS";
+// let URL = 'https://54.227.99.93:3001'
+let URL;
+process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
 
 export const getProducts = () => {
   return function (dispatch) {
-    return axios.get(`http://localhost:3001/product/all`)
+    return axios.get(`${URL}/product/all`)
       // return axios.get(`/product/all`)
       .then(resp => dispatch({ type: GET_PRODUCTS, payload: resp.data }))
       .catch(error => console.log('Action error in getProducts: ', error))
@@ -38,7 +41,7 @@ export const getProducts = () => {
 
 export const getProductById = (id) => {
   return function (dispatch) {
-    return axios.get(`http://localhost:3001/product/${id}`)
+    return axios.get(`${URL}/product/${id}`)
       // return axios.get(`/product/${id}`)
       .then(resp => dispatch({ type: GET_PRODUCT_ID, payload: resp.data }))
       .catch(error => console.log('Action error in getProductById: ', error))
@@ -47,7 +50,7 @@ export const getProductById = (id) => {
 
 export function byName(name) {
   return function (dispatch) {
-    return axios.get(`http://localhost:3001/product/name?name=${name}`)
+    return axios.get(`${URL}/product/name?name=${name}`)
       // return axios.get(`/product/name?name=${name}`)
       .then(resp => dispatch({ type: BY_NAME, payload: resp.data }))
       .catch(error => console.log('Action error in byName: ', error))
@@ -71,7 +74,7 @@ export function filterByPrice(optionSelected) {
 export function createCategory(category) {
   console.log(category)
   return function () {
-    return axios.post("http://localhost:3001/category", category)
+    return axios.post(`${URL}/category`, category)
       // return axios.post("/category", category)
       .then(alert('Category created successfully!'))
       .catch(error => console.log('Action error in createCategory: ', error))
@@ -80,7 +83,7 @@ export function createCategory(category) {
 
 export const getCategories = () => {
   return function (dispatch) {
-    return axios.get(`http://localhost:3001/category`)
+    return axios.get(`${URL}/category`)
       // return axios.get(`/category`)
       .then(resp => dispatch({ type: GET_CATEGORIES, payload: resp.data }))
       .catch(error => console('Action error in getCategories: ', error))
@@ -98,7 +101,7 @@ export function createProduct(product) {
   return function (dispatch) {
     console.log(product)
     try {
-      return axios.post("http://localhost:3001/product", product)
+      return axios.post(`${URL}/product`, product)
         // return axios.post("/product", product)
         .then(res => {
           alert('Product created Successfully');
@@ -121,7 +124,7 @@ export function createProduct(product) {
 
 export function getUsers() {
   return function (dispatch) {
-    return axios.get(`http://localhost:3001/user`)
+    return axios.get(`${URL}/user`)
       .then(resp => dispatch({ type: GET_USERS, payload: resp.data }))
       .catch(error => console.log('Action error in getProducts: ', error))
   }
@@ -129,7 +132,7 @@ export function getUsers() {
 
 export function signUp(user) {
   return function (dispatch) {
-    return axios.get(`http://localhost:3001/user?email=${user.email}`)
+    return axios.get(`${URL}/user?email=${user.email}`)
       .then(resp => {
         if (resp.data.length) {
           if (resp.data[0].email.split('@'[1] === 'gmail.com')) {
@@ -144,7 +147,7 @@ export function signUp(user) {
           }
           return alert('The email is already in use')
         } else {
-          return axios.post("http://localhost:3001/user", user)
+          return axios.post(`${URL}/user`, user)
             .then(resp => {
               if (resp.data === 'user created successfully') {
                 alert('Account created successfully. Welcome to our platform')
@@ -167,7 +170,7 @@ export function signUp(user) {
 
 export function login(user) {
   return function (dispatch) {
-    return axios.get(`http://localhost:3001/user?email=${user.email}`, user)
+    return axios.get(`${URL}/user?email=${user.email}`, user)
       .then(resp => {
         let loggedUser = JSON.parse(localStorage.getItem("user"));
         if (loggedUser === user.email) return alert('You are already logged in');
@@ -188,7 +191,7 @@ export function logout() {
 
 export function changePermission(user) {
   return function () {
-    return axios.put(`http://localhost:3001/user/update/${user.email}`, user)
+    return axios.put(`${URL}/user/update/${user.email}`, user)
       .then(console.log('Admin permissions changed'))
       .catch(error => console.log('Action error in changePermission: ', error))
   };
@@ -196,7 +199,7 @@ export function changePermission(user) {
 
 export function deleteUser(emailUser) {
   return function () {
-    return axios.delete(`http://localhost:3001/user/delete/${emailUser}`)
+    return axios.delete(`${URL}/user/delete/${emailUser}`)
       .then(resp => {
         if (resp.data.notFound) alert(resp.data.notFound)
         else if (resp.data.success) alert(resp.data.success)
@@ -208,7 +211,7 @@ export function deleteUser(emailUser) {
 
 export function createReview(data) {
   return function (dispatch) {
-    return axios.post("http://localhost:3001/product/review", data)
+    return axios.post(`${URL}/product/review`, data)
       .then(resp => {
         console.log('OK', resp, data);
         return dispatch({ type: CREATEREVIEW, payload: resp.data })
@@ -232,7 +235,7 @@ export function modifyProduct(data, id) {
             ...data,
             image: resp.data.public_id
           }
-          return axios.put(`http://localhost:3001/product/update/${id}`, updatedData)
+          return axios.put(`${URL}/product/update/${id}`, updatedData)
         })
         .then(resp => {
           // window.location.href = '/home'
@@ -240,7 +243,7 @@ export function modifyProduct(data, id) {
         })
         .catch(error => console.log('Error: ', error.message))
     } else {
-      return axios.put(`http://localhost:3001/product/update/${id}`, data)
+      return axios.put(`${URL}/product/update/${id}`, data)
         .then(resp => {
           // window.location.href = '/home'
           return dispatch({ type: MODIFYPRODUCT })
@@ -258,7 +261,7 @@ export function loadingImage(status) {
 
 export function createOrder(data) {
   return function (dispatch) {
-    return axios.post("http://localhost:3001/order", data)
+    return axios.post(`${URL}/order`, data)
       .then(resp => {
         console.log('OK', resp, data);
         return dispatch({ type: CREATE_ORDER, payload: resp.data })
