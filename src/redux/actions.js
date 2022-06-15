@@ -1,7 +1,6 @@
 import axios from "axios";
 // import { useNavigate } from 'react-router-dom';
 // const navigate = useNavigate();
-
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const GET_PRODUCT_ID = "GET_PRODUCT_ID";
 export const BY_NAME = "BY_NAME";
@@ -139,8 +138,8 @@ export function signUp(user) {
             dispatch({
               type: LOGIN,
               payload: {
-                email: user.email,
-                usertype: 'User'
+                email: resp.data[0].email,
+                usertype: resp.data[0].usertype
               }
             })
             return alert('Successfull login!')
@@ -278,7 +277,7 @@ export function cartItems(counter) {
 }
 export function getorderbyid(id) {
   return function (dispatch) {
-    return axios.get(`http://localhost:3001/order/getbyorder/${id}`)
+    return axios.get(`${URL}/order/getbyorder/${id}`)
       .then(resp => dispatch({ type: GET_ORDERS_ID, payload: resp.data }))
       .catch(error => console.log('Action error in getOrders: ', error))
   }
@@ -286,7 +285,7 @@ export function getorderbyid(id) {
 
 export function getorder() {
   return function (dispatch) {
-    return axios.get(`http://localhost:3001/order/getbyorder/1`)
+    return axios.get(`${URL}/order/getbyorder/1`)
       .then(resp => dispatch({ type: GET_ORDERS, payload: resp.data }))
       .catch(error => console.log('Action error in getOrders: ', error))
   }
@@ -294,7 +293,7 @@ export function getorder() {
 
 export function getuserReview(email) {
   return function (dispatch) {
-    return axios.get(`http://localhost:3001/review/user/${email}`)
+    return axios.get(`${URL}/review/user/${email}`)
       .then(resp => dispatch({ type: GET_USER_REVIEW, payload: resp.data }))
       .catch(error => console.log('Action error in getOrders: ', error))
   }
@@ -302,14 +301,14 @@ export function getuserReview(email) {
 
 export function getuserOrders(email) {
   return function (dispatch) {
-    return axios.get(`http://localhost:3001/order/${email} `)
+    return axios.get(`${URL}/order/${email} `)
       .then(resp => dispatch({ type: GET_USER_ORDERS, payload: resp.data }))
       .catch(error => console.log('Action error in getOrders: ', error))
   }
 }
 
 export function changeStatus(status) {
-  return axios.put(`http://localhost:3001/order`, status)
+  return axios.put(`${URL}/order`, status)
     .then(resp => console.log('Change status success', resp.data))
     .catch(error => console.log('Action error in change status: ', error))
 };
@@ -332,7 +331,7 @@ export function filterStatus(e) {
 
 export function updateCategorie(id, category) {
   return function (dispatch) {
-    return axios.put(` http://localhost:3001/category/update/${id}`, category)
+    return axios.put(`${URL}/category/update/${id}`, category)
       .then(resp => dispatch(console.log('Change categorie success', resp.data)))
       .catch(error => console.log('Action error in change categorie: ', error))
   }
