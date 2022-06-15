@@ -25,6 +25,7 @@ import UserOrder from './components/Orders/UserOrder';
 import CreateCategory from './components/CreateCategory/CreateCategory';
 import Categories from './components/CreateCategory/Categories';
 import ModifyCategory from './components/CreateCategory/Modifycategory';
+import UserPage from './components/UserSite/UserPage';
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
         <Route path='/details/:id' element={<Details />} />
         <Route path='/cart' element={<ShoppingCart />} />
         <Route path='/admin' element={<AdminPage />} />
+        <Route path='/user' element={<UserPage />} />
         <Route path='/orders' element={<Orders />} />
         <Route path='/userOrder/:email' element={<UserOrder />} />
         <Route path='/OrderDetail/:id' element={<OrderDetail />} />
@@ -56,7 +58,7 @@ function App() {
         <Route path='/creationform' element={<ProductCreationForm />} />
         <Route path='/modificationForm/:id' element={<ModificationForm />} />
         <Route path='/successOrder' element={<CheckoutCart />} />
-        <Route path='/password/:mail' element={<Password />} />{/*AGCH*/}
+        <Route path='/password/supersecreturl/:mail' element={<Password />} />{/*AGCH*/}
         <Route path='*' element={<NotFound />} />
       </Routes>
       {

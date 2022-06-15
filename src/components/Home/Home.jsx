@@ -10,13 +10,16 @@ function Home() {
   const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
   let dataCart = JSON.parse(localStorage.getItem("cartProduct"));
+  // let URL = 'https://54.227.99.93:3001'
+  let URL;
+  process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
 
   useEffect(() => {
     const loadProducts = async () => {
-      const response = await axios.get(`http://localhost:3001/product/all`);
+      const response = await axios.get(`${URL}/product/all`);
       setProducts(response.data);
     }
-    dispatch(getorder(1));
+    dispatch(getorder());
     loadProducts();
     if (dataCart?.length) {
       console.log(dataCart)

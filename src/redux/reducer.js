@@ -20,7 +20,6 @@ import {
   GET_USER_REVIEW,
   GET_USER_ORDERS,
   FILTER_ORDER,
-  ORDER_STATUS,
   FILTER_STATUS
 } from "./actions"
 
@@ -40,7 +39,6 @@ const initialState = {
   filteredOrders:[],
   statusfiltered:[],
   orderDet:[],
-  orderStatus:[],
   userReview:[]
 }
 
@@ -123,54 +121,21 @@ export function rootReducer(state = initialState, { type, payload }) {
     case GET_ORDERS_ID:
       return {...state, orderDet:payload}
 
-    case GET_ORDERS:
-      {
-        const email = payload.map(o=>o.userEmail)
-        let arreglounico=[];
-
-        for (let i = 0; i < email.length; i++) {
-          if(arreglounico.includes(email[i])){
-            console.log("se repite " + email[i])
-          }
-          else{
-            arreglounico.push(email[i])
-            console.log(arreglounico)
-          }
-
-        }
-
-        return{...state, orders:arreglounico}
-      }
+    case GET_USER_ORDERS:
+        return{...state, userOrders:payload}
+      
 
     case GET_USER_REVIEW:
       return{...state, userReview:payload}
 
-    case GET_USER_ORDERS:
-      return{...state, userOrders:payload}
+    case GET_ORDERS:
+      return{...state, orders:payload}
 
-    case FILTER_ORDER:
-        return {...state,filteredOrders:state.userOrders.filter(u=>u.userEmail === payload) }
-
-
-    case ORDER_STATUS:
-      {
-        const orders= state.filteredOrders.map(o=>o.status)
-        console.log("orders",orders)
-
-        let arreglounico=[];
-
-        for (let i = 0; i < orders.length; i++) {
-          if(arreglounico.includes(orders[i])){
-            console.log("se repite " + orders[i])
-          }
-          else{
-            arreglounico.push(orders[i])
-            console.log(arreglounico)
-          }
-
-        }
-      return {...state,orderStatus:arreglounico}
+    case FILTER_ORDER:{
+      const filter = state.orders.filter(u=>u.userEmail === payload)
+      return {...state,filteredOrders: filter}
     }
+
 
     case FILTER_STATUS:
       {

@@ -5,7 +5,8 @@ import ProductCreationForm from '../ProductCreationForm/ProductCreationForm';
 import Users from "./Users";
 import Orders from '../Orders/Orders'
 import Search  from "../Search/Search";
-import { getuserOrders,orderStatus,getorder} from "../../redux/actions";
+import NotFound from '../NotFound/NotFound';
+import { getorder} from "../../redux/actions";
 import { useDispatch,useSelector } from "react-redux";
 import axios from "axios";
 import Categories from "../CreateCategory/Categories";
@@ -17,24 +18,20 @@ export default function AdminPage(props) {
   const [Page, setPage] = useState('course');
   const [products, setProducts] = useState([]);
   const category = useSelector(state => state.categories);
+  let URL;
+  process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
 
   console.log("cat",category)
 
-  useEffect(() => {
-    dispatch(orderStatus());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(getuserOrders());
-  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getorder());
   }, [dispatch]);
 
+
   useEffect(() => {
     const loadProducts = async () => {
-      const response = await axios.get(`http://localhost:3001/product/all`);
+      const response = await axios.get(`${URL}/product/all`);
       setProducts(response.data);
     }
     loadProducts();
@@ -48,6 +45,7 @@ export default function AdminPage(props) {
    else if(e === 'order')setPage('order')
    else if(e === 'Users')setPage('Users')
   }
+
 
   return (
       <div className="grid justify-items-center w-full">
