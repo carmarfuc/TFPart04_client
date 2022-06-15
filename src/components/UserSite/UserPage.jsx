@@ -1,15 +1,21 @@
 import React from 'react'
-import { useDispatch } from "react-redux";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import { getuserOrders } from '../../redux/actions'
 
 const UserPage = () => {
   const dispatch = useDispatch()
 
   const user = localStorage.getItem("user")
+  const orders = useSelector(state => state.userOrders.orders_heads)
 
-  async function handleGetOrders(user) {
-    const orders = await dispatch(getuserOrders(user))
+  function handleGetOrders(user) {
+    dispatch(getuserOrders(user))
   }
+
+  useEffect(() => {
+    handleGetOrders(user)
+  }, []);
 
   return (
     <div>
@@ -18,37 +24,39 @@ const UserPage = () => {
           {/* <!-- head --> */}
           <thead>
             <tr>
-              <th>Name</th>
+              <th>Price</th>
               <th>User type</th>
-              <th>Permissions</th>
             </tr>
           </thead>
           <tbody>
-            {/* <tr>
-              <td>
-                <div className="flex items-center space-x-3">
-                  <div>
-                    <div className="font-bold">{u.nickName}</div>
-                    <div className="text-sm opacity-50">{u.country}</div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                {u.usertype}
-                <br />
-                <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
-              </td>
-              <th>
-                <button id={u.email} name={u.usertype} onClick={e => handlePermission(e)}>Change to {u.usertype === 'Admin' ? 'User' : 'Admin'}</button>
-              </th>
-            </tr> */}
+            {orders &&
+              orders.map(o => {
+                return <tr key={o.id}>
+                  <td>
+                    <div className="flex items-center space-x-3">
+                      <div>
+                        <div className="font-bold">{o.total}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    {o.orders_pos.map(o => {
+                      return <div>
+                        {o.description}
+                      </div>
+                    })}
+                    <br />
+                    <span className="badge badge-ghost badge-sm">{o.status}</span>
+                  </td>
+                </tr>
+              })
+            }
           </tbody>
-          {/* <!-- foot --> */}
         </table>
       </div>
       <div>
       </div>
-    </div>
+    </div >
   )
 }
 
