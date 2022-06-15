@@ -12,6 +12,7 @@ const CartItem = () => {
   const navigate = useNavigate();
   const [cart, setCart] = useState([])
   let URL;
+  // let URL = 'https://54.227.99.93:3001'
   // Mercado Pago-------
   process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
 
@@ -25,15 +26,6 @@ const CartItem = () => {
       window.location.href = response.data.init_point;
     }
   };
-
-  let cookies = []
-
-
-  dataCart?.forEach(item => {
-    let data = { title: item.description, unit_price: item.price, quantity: 1 }
-    cookies.push(data)
-  }
-  )
 
   const removeOneFromCart = (id) => {
     dispatch(cartItems(-1))
@@ -123,7 +115,7 @@ const CartItem = () => {
               <div className="grid grid-cols-2 ">
                 <div className="grid justify-items-center m-3">
                   <form onSubmit={handleSubmit} className=''>
-                    <button className="btn btn-primary w-40" type='submit' onClick={() => MpPaymentHandler({ cookies })}>Buy</button>
+                    <button className="btn btn-primary w-40" type='submit' onClick={() => MpPaymentHandler(dataCart)}>Buy</button>
                   </form>
                 </div>
                 <div>

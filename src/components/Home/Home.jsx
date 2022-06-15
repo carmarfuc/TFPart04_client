@@ -10,6 +10,7 @@ function Home() {
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
   let dataCart = JSON.parse(localStorage.getItem("cartProduct"));
+  // let URL = 'https://54.227.99.93:3001'
   let URL;
   process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
 
