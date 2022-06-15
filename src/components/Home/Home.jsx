@@ -10,10 +10,12 @@ function Home() {
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
   let dataCart = JSON.parse(localStorage.getItem("cartProduct"));
+  let URL;
+  process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
 
   useEffect(() => {
     const loadProducts = async () => {
-      const response = await axios.get(`http://localhost:3001/product/all`);
+      const response = await axios.get(`${URL}/product/all`);
       setProducts(response.data);
     }
     loadProducts();

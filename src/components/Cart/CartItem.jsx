@@ -11,17 +11,19 @@ const CartItem = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const [cart, setCart] = useState([])
-
+  let URL;
   // Mercado Pago-------
-  const backendURL = "http://localhost:3001/mercadopago/new"
+  process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
+
+  const backendURL = `${URL}/mercadopago/new`
 
   let dataCart = JSON.parse(localStorage.getItem("cartProduct"));
 
   const MpPaymentHandler = async (cookies) => {
-    if(dataCart){
-    const response = await axios.post(backendURL, cookies);
-    window.location.href = response.data.init_point;
-  }
+    if (dataCart) {
+      const response = await axios.post(backendURL, cookies);
+      window.location.href = response.data.init_point;
+    }
   };
 
   let cookies = []

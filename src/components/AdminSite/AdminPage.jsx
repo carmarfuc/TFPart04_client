@@ -10,6 +10,8 @@ import NotFound from "../NotFound/NotFound";
 export default function AdminPage() {
   const [Alert, setAlert] = useState(false);
   const [Page, setPage] = useState('course');
+  let URL;
+  process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
 
   function HandlePage(e) {
     if (e === 'course') setPage('course')
@@ -25,7 +27,7 @@ export default function AdminPage() {
     }, 1000);
   }
 
-  if (window.location.href === 'http://localhost:3000/admin' && localStorage.usertype !== 'Admin') {
+  if (window.location.href === `${URL}/admin` && localStorage.usertype !== 'Admin') {
     return <NotFound />
   }
 
