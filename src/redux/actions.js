@@ -297,9 +297,9 @@ export function getuserReview(email) {
   }
 }
 
-export function getuserOrders() {
+export function getuserOrders(email) {
   return function (dispatch) {
-    return axios.get(`http://localhost:3001/order/getbyorder/1`)
+    return axios.get(`http://localhost:3001/order/${email} `)
       .then(resp => dispatch({ type: GET_USER_ORDERS, payload: resp.data }))
       .catch(error => console.log('Action error in getOrders: ', error))
   }
@@ -318,11 +318,6 @@ export function filterOrder(email) {
   };
 };
 
-export function orderStatus() {
-  return {
-    type: ORDER_STATUS,
-  };
-};
 
 export function filterStatus(e) {
   return {

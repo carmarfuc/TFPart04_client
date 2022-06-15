@@ -16,7 +16,7 @@ function Home() {
       const response = await axios.get(`http://localhost:3001/product/all`);
       setProducts(response.data);
     }
-    dispatch(getorder(1));
+    dispatch(getorder());
     loadProducts();
     if (dataCart?.length) {
       console.log(dataCart)
