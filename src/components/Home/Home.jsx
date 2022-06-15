@@ -4,7 +4,7 @@ import ProductCards from '../ProductCards/ProductCards';
 import Filters from '../Filters/Filters';
 import Search from '../Search/Search';
 import { useDispatch } from 'react-redux';
-import { cartItems, getorder } from '../../redux/actions';
+import { cartItems, getuserOrders } from '../../redux/actions';
 
 function Home() {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ function Home() {
       const response = await axios.get(`http://localhost:3001/product/all`);
       setProducts(response.data);
     }
-    dispatch(getorder(1));
+    dispatch(getuserOrders());
     loadProducts();
     if (dataCart?.length) {
       console.log(dataCart)

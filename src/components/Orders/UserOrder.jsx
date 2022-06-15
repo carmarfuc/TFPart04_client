@@ -5,13 +5,17 @@ import { NavLink } from "react-router-dom";
 import { changeStatus,filterOrder,getuserOrders,filterStatus } from "../../redux/actions";
 import axios from "axios";
 
+
+
+
 export default function UserOrder() {
   const { email } = useParams();
   const dispatch = useDispatch();
-  const filteredOrders = useSelector((state) => state.filteredOrders);
+  // const filteredOrders = useSelector((state) => state.filteredOrders);
+  const UserOrder = useSelector((state)=>state.userOrders)
   const status = useSelector((state)=>state.orderStatus)
   const statusfiltered = useSelector((state) => state.statusfiltered);
-  const orders = statusfiltered.length ? statusfiltered:filteredOrders;
+  const orders = statusfiltered.length ? statusfiltered:UserOrder.filter(u=>u.userEmail === email);
   const state = useSelector(state => state)
 
   useEffect(() => {
@@ -23,18 +27,26 @@ export default function UserOrder() {
     console.log(e.target.value)
 };
 
+  const refresh = ()=>{
+    setTimeout(() => {
+      dispatch(getuserOrders())
+      dispatch(filterOrder(email))
+    }, 100);
+
+  }
+
   const handlechangeStatus = (id,e) => {
     if(e === "cancelle"){
       changeStatus({orderId:id,status:e}) 
-      dispatch(getuserOrders());
+      refresh()
     }
     if(e === "pending"){
       changeStatus({orderId:id,status:e})
-      dispatch(getuserOrders());
+      refresh()
     }
     if(e === "payed"){
       changeStatus({orderId:id,status:e})
-      dispatch(getuserOrders());
+      refresh()
     }
     
   };
@@ -76,6 +88,7 @@ export default function UserOrder() {
             <th>Status</th>
             <th>Actions</th>
             <th></th>
+          
           </tr>
         </thead>
 

@@ -148,8 +148,10 @@ export function rootReducer(state = initialState, { type, payload }) {
     case GET_USER_ORDERS:
       return{...state, userOrders:payload}
 
-    case FILTER_ORDER:
-        return {...state,filteredOrders:state.userOrders.filter(u=>u.userEmail === payload) }
+    case FILTER_ORDER:{
+      const filter = state.userOrders.filter(u=>u.userEmail === payload)
+      return {...state,filteredOrders: filter}
+    }
 
 
     case ORDER_STATUS:
