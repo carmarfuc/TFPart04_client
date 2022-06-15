@@ -123,33 +123,18 @@ export function rootReducer(state = initialState, { type, payload }) {
     case GET_ORDERS_ID:
       return {...state, orderDet:payload}
 
-    case GET_ORDERS:
-      {
-        const email = payload.map(o=>o.userEmail)
-        let arreglounico=[];
-
-        for (let i = 0; i < email.length; i++) {
-          if(arreglounico.includes(email[i])){
-            console.log("se repite " + email[i])
-          }
-          else{
-            arreglounico.push(email[i])
-            console.log(arreglounico)
-          }
-
-        }
-
-        return{...state, orders:arreglounico}
-      }
+    case GET_USER_ORDERS:
+        return{...state, userOrders:payload}
+      
 
     case GET_USER_REVIEW:
       return{...state, userReview:payload}
 
-    case GET_USER_ORDERS:
-      return{...state, userOrders:payload}
+    case GET_ORDERS:
+      return{...state, orders:payload}
 
     case FILTER_ORDER:{
-      const filter = state.userOrders.filter(u=>u.userEmail === payload)
+      const filter = state.orders.filter(u=>u.userEmail === payload)
       return {...state,filteredOrders: filter}
     }
 

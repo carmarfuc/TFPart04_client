@@ -297,13 +297,13 @@ export function getuserReview(email) {
   }
 }
 
-export function getuserOrders() {
-  return function (dispatch) {
-    return axios.get(`http://localhost:3001/order/getbyorder/1`)
-      .then(resp => dispatch({ type: GET_USER_ORDERS, payload: resp.data }))
-      .catch(error => console.log('Action error in getOrders: ', error))
-  }
-}
+// export function getuserOrders(email) {
+//   return function (dispatch) {
+//     return axios.get(`http://localhost:3001/order/${email} `)
+//       .then(resp => dispatch({ type: GET_USER_ORDERS, payload: resp.data }))
+//       .catch(error => console.log('Action error in getOrders: ', error))
+//   }
+// }
 
 export function changeStatus(status) {
   return axios.put(`http://localhost:3001/order`, status)
