@@ -50,7 +50,7 @@ function ProductIndividualCard({
 
             <div class="card card-compact w-96 bg-orange-100 shadow-xl my-4">
                 <NavLink to={`/details/${id}`}>
-                    <figure><img src={imageName} /></figure>
+                    <figure><img src={imageName} alt={name} /></figure>
                 </NavLink>
                 <div className="card-body">
                     <h2 className="card-title">{name}</h2>
@@ -62,7 +62,7 @@ function ProductIndividualCard({
                         <div>Price: </div>
                         <div><p>{price} USD</p></div>
                     </div>
-                    
+
                     <div className="card-actions justify-end">
                         <button className="btn btn-primary" onClick={() => addToCart(addcar)}>Add to Cart</button>
                     </div>

@@ -16,6 +16,8 @@ export default function AdminPage(props) {
   const [Page, setPage] = useState('course');
   const [products, setProducts] = useState([]);
   const category = useSelector(state => state.categories);
+  let URL;
+  process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
 
   console.log("cat",category)
 
@@ -27,7 +29,7 @@ export default function AdminPage(props) {
 
   useEffect(() => {
     const loadProducts = async () => {
-      const response = await axios.get(`http://localhost:3001/product/all`);
+      const response = await axios.get(`${URL}/product/all`);
       setProducts(response.data);
     }
     loadProducts();
@@ -43,6 +45,9 @@ export default function AdminPage(props) {
   }
 
 
+  if (window.location.href === `${URL}/admin` && localStorage.usertype !== 'Admin') {
+    return <NotFound />
+  }
 
   return (
     <div>
@@ -51,7 +56,7 @@ export default function AdminPage(props) {
  <div class="flex flex-row"><Search allProducts={products}/></div>
       )}
 
-   
+
       </div>
       <div class="flex flex-row">
         {/* //------------------------- menu lateral ------------------------------------- */}
