@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { changeStatus,filterOrder,getuserOrders } from "../../redux/actions";
+import { changeStatus,filterOrder,getuserOrders,filterStatus } from "../../redux/actions";
 import axios from "axios";
 
 export default function UserOrder() {
@@ -10,11 +10,18 @@ export default function UserOrder() {
   const dispatch = useDispatch();
   const filteredOrders = useSelector((state) => state.filteredOrders);
   const status = useSelector((state)=>state.orderStatus)
+  const statusfiltered = useSelector((state) => state.statusfiltered);
+  const orders = statusfiltered.length ? statusfiltered:filteredOrders;
 
 
   useEffect(() => {
     dispatch(filterOrder(email));
   }, [dispatch])
+
+  const handleStatus = (e) => {
+    dispatch(filterStatus(e.target.value));
+    console.log(e.target.value)
+};
 
   const handlechangeStatus = (id,e) => {
     if(e === "cancelle"){
@@ -37,7 +44,7 @@ export default function UserOrder() {
       <div className="px-3 pb-2">
         <div className="pt-2">
           <i className="far fa-heart cursor-pointer"></i>
-          <h1 className="text-xl text-orange-700 font-bold">{email}</h1>
+          <h1 className="text-xl text-orange-700 font-bold">User: {email}</h1>
           <hr/>
         </div>
         <br></br>
@@ -48,15 +55,15 @@ export default function UserOrder() {
                 class="select select-bordered select-sm w-60 max-w-xs select-primary mr-10 bg-neutral"
                 name='filterByCategory'
                 defaultValue={true}
-                // onChange={handleSelectCategory}
+                onChange={handleStatus}
             >
                 <option disabled value='true' selected>Filter status</option>
                 <option value='all'>All</option>
-                {/* {status ? status.map((ctgry, i) => {
+                {status ? status.map((o) => {
                     return (
-                        <option key={i} value={ctgry.name}>{ctgry.name}</option>
+                        <option value={o}>{o}</option>
                     )
-                }) : ''} */}
+                }) : ''}
             </select>
       </nav> 
       <br></br>
@@ -73,7 +80,7 @@ export default function UserOrder() {
         </thead>
 
         <tbody>
-          {filteredOrders.map((o) => {
+          {orders.map((o) => {
             return (
               <tr>
                 <td>

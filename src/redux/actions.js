@@ -22,6 +22,7 @@ export const GET_USER_REVIEW="GET_USER_REVIEW";
 export const GET_USER_ORDERS = "GET_USER_ORDERS";
 export const FILTER_ORDER = "FILTER_ORDER"; 
 export const ORDER_STATUS = "ORDER_STATUS";
+export const FILTER_STATUS = "FILTER_STATUS";
 
 export const getProducts = () => {
   return function (dispatch) {
@@ -301,5 +302,12 @@ export function filterOrder(email) {
 export function orderStatus() {
   return {
     type: ORDER_STATUS,
+  };
+};
+
+export function filterStatus(e) {
+  return {
+    type: FILTER_STATUS,
+    payload: e
   };
 };
