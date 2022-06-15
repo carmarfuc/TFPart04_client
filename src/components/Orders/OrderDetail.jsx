@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
 import { getorderbyid, getuserReview } from "../../redux/actions";
 import LeaveReview from "../LeaveReview/LeaveReview";
 
