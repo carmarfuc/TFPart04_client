@@ -8,12 +8,16 @@ import Search  from "../Search/Search";
 import { getuserOrders,orderStatus,getorder} from "../../redux/actions";
 import { useDispatch,useSelector } from "react-redux";
 import axios from "axios";
+import Categories from "../CreateCategory/Categories";
 
 
 export default function AdminPage(props) {
   const dispatch = useDispatch();
   const [Page, setPage] = useState('course');
   const [products, setProducts] = useState([]);
+  const category = useSelector(state => state.categories);
+
+  console.log("cat",category)
 
   useEffect(() => {
     dispatch(orderStatus());
@@ -38,7 +42,7 @@ export default function AdminPage(props) {
 
   function HandlePage(e){
    if(e === 'course')setPage('course')
-   else if(e === 'CreateCategory')setPage('CreateCategory')
+   else if(e === 'Category')setPage('Category')
    else if(e === 'CreateCourse')setPage('CreateCourse')
    else if(e === 'order')setPage('order')
    else if(e === 'Users')setPage('Users')
@@ -49,7 +53,13 @@ export default function AdminPage(props) {
   return (
     <div>
     <div class="flex flex-row-reverse">
-    <div class="flex flex-row"><Search allProducts={products}/></div>
+      {Page === "course" && (
+ <div class="flex flex-row"><Search allProducts={products}/></div>
+      )}
+         {Page === "order" && (
+ <div class="flex flex-row"><Search allProducts={products}/></div>
+      )}
+   
       </div>
       <div class="flex flex-row">
         {/* //------------------------- menu lateral ------------------------------------- */}
@@ -76,7 +86,7 @@ export default function AdminPage(props) {
                 </li>
                 <li>
                   <button
-                    onClick={()=>HandlePage('CreateCategory')}
+                    onClick={()=>HandlePage('Category')}
                     class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-grey hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     <svg
@@ -87,7 +97,7 @@ export default function AdminPage(props) {
                     >
                       <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
                     </svg>
-                    <span class="ml-3">Create category</span>
+                    <span class="ml-3">Categories</span>
                   </button>
                 </li>
                 <li>
@@ -154,9 +164,9 @@ export default function AdminPage(props) {
           <div>
             <ProductTable allProducts={products}/>
           </div> }
-          {Page === 'CreateCategory' &&
+          {Page === 'Category' &&
               <div>
-                <CreateCategory/>
+                <Categories/>
               </div>
             }
           {Page === 'order' &&

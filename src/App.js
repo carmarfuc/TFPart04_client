@@ -20,6 +20,9 @@ import Footer from './components/Footer/Footer'
 import Orders from './components/Orders/Orders';
 import OrderDetail from './components/Orders/OrderDetail';
 import UserOrder from './components/Orders/UserOrder';
+import CreateCategory from './components/CreateCategory/CreateCategory';
+import Categories from './components/CreateCategory/Categories';
+import ModifyCategory from './components/CreateCategory/Modifycategory';
 
 
 function App() {
@@ -44,6 +47,9 @@ function App() {
         <Route path='/orders' element={<Orders />} />
         <Route path='/userOrder/:email' element={<UserOrder />} />
         <Route path='/OrderDetail/:id' element={<OrderDetail/>} />
+        <Route path='/Categories' element={<Categories/>} />
+        <Route path='/CreateCategory' element={<CreateCategory/>} />
+        <Route path='/ModifyCategory/:idCategori' element={<ModifyCategory/>} />
         <Route path='/resources' element={<Resources />} />
         <Route path='/creationform' element={<ProductCreationForm />} />
         <Route path='/modificationForm/:id' element={<ModificationForm />} />

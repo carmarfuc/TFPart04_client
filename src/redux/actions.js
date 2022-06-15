@@ -311,3 +311,14 @@ export function filterStatus(e) {
     payload: e
   };
 };
+
+
+export function updateCategorie(id,category) {
+  return function (dispatch){
+    return axios.put(` http://localhost:3001/category/update/${id}`,category)
+    .then(resp => dispatch(console.log('Change categorie success',resp.data)))
+    .catch(error => console.log('Action error in change categorie: ', error))
+  }
+
+};
+

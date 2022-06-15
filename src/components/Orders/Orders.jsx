@@ -12,9 +12,6 @@ export default function Orders() {
 
 
 
-  useEffect(() => {
-    dispatch(getorder(1));
-  }, [dispatch]);
 
   return (
     <div class="overflow-x-auto w-full">
