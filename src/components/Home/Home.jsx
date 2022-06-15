@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux/es/exports';
 import axios from "axios";
 import ProductCards from '../ProductCards/ProductCards';
 import Filters from '../Filters/Filters';
