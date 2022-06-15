@@ -9,11 +9,10 @@ import styles from './CreateCategory.module.css'
 export default function ModifyCategory() {
   const {idCategori} = useParams();
   const dispatch = useDispatch();
-
   const [category, setCategory] = useState({})
   const [errors, setErrors] = useState({});
-  console.log(idCategori)
-  console.log("esto es",errors)
+
+
 
   function handleChange(e) {
     let item = e.target.name

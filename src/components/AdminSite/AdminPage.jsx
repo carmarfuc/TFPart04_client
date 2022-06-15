@@ -56,9 +56,7 @@ export default function AdminPage(props) {
       {Page === "course" && (
  <div class="flex flex-row"><Search allProducts={products}/></div>
       )}
-         {Page === "order" && (
- <div class="flex flex-row"><Search allProducts={products}/></div>
-      )}
+
    
       </div>
       <div class="flex flex-row">
