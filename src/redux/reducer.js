@@ -14,7 +14,13 @@ import {
   MODIFYPRODUCT,
   LOADINGIMAGE,
   CREATE_ORDER,
-  CART_ITEMS
+  CART_ITEMS,
+  GET_ORDERS,
+  GET_ORDERS_ID,
+  GET_USER_REVIEW,
+  GET_USER_ORDERS,
+  FILTER_ORDER,
+  FILTER_STATUS
 } from "./actions"
 
 const initialState = {
@@ -27,8 +33,13 @@ const initialState = {
   users: [],
   imageLoading: false,
   usertype: '',
-  order: [],
-  cartItems: 0
+  cartItems: 0,
+  orders:[],
+  userOrders:[],
+  filteredOrders:[],
+  statusfiltered:[],
+  orderDet:[],
+  userReview:[]
 }
 
 export function rootReducer(state = initialState, { type, payload }) {
@@ -106,6 +117,33 @@ export function rootReducer(state = initialState, { type, payload }) {
       localStorage.removeItem("user")
       localStorage.removeItem("usertype")
       return { ...state, loggedUser: {} }
+
+    case GET_ORDERS_ID:
+      return {...state, orderDet:payload}
+
+    case GET_USER_ORDERS:
+        return{...state, userOrders:payload}
+      
+
+    case GET_USER_REVIEW:
+      return{...state, userReview:payload}
+
+    case GET_ORDERS:
+      return{...state, orders:payload}
+
+    case FILTER_ORDER:{
+      const filter = state.orders.filter(u=>u.userEmail === payload)
+      return {...state,filteredOrders: filter}
+    }
+
+
+    case FILTER_STATUS:
+      {
+      let filterOrder = state.filteredOrders.filter(o => o.status.includes(payload));
+      return { ...state, statusfiltered: filterOrder }
+
+    }
+
 
     case CART_ITEMS:
       if (payload === 0) {

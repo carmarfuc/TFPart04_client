@@ -1,7 +1,6 @@
 import axios from "axios";
 // import { useNavigate } from 'react-router-dom';
 // const navigate = useNavigate();
-
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const GET_PRODUCT_ID = "GET_PRODUCT_ID";
 export const BY_NAME = "BY_NAME";
@@ -19,6 +18,13 @@ export const MODIFYPRODUCT = "MODIFYPRODUCT";
 export const LOADINGIMAGE = "LOADINGIMAGE";
 export const CREATE_ORDER = "CREATE_ORDER";
 export const CART_ITEMS = 'CART_ITEMS'
+export const GET_ORDERS = "GET_ORDERS";
+export const GET_ORDERS_ID = "GET_ORDERS_ID";
+export const GET_USER_REVIEW = "GET_USER_REVIEW";
+export const GET_USER_ORDERS = "GET_USER_ORDERS";
+export const FILTER_ORDER = "FILTER_ORDER";
+export const ORDER_STATUS = "ORDER_STATUS";
+export const FILTER_STATUS = "FILTER_STATUS";
 // let URL = 'https://54.227.99.93:3001'
 let URL;
 process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
@@ -65,6 +71,7 @@ export function filterByPrice(optionSelected) {
 };
 
 export function createCategory(category) {
+  console.log(category)
   return function () {
     return axios.post(`${URL}/category`, category)
       // return axios.post("/category", category)
@@ -268,3 +275,65 @@ export function cartItems(counter) {
     return dispatch({ type: CART_ITEMS, payload: counter })
   }
 }
+export function getorderbyid(id) {
+  return function (dispatch) {
+    return axios.get(`${URL}/order/getbyorder/${id}`)
+      .then(resp => dispatch({ type: GET_ORDERS_ID, payload: resp.data }))
+      .catch(error => console.log('Action error in getOrders: ', error))
+  }
+}
+
+export function getorder() {
+  return function (dispatch) {
+    return axios.get(`${URL}/order/getbyorder/1`)
+      .then(resp => dispatch({ type: GET_ORDERS, payload: resp.data }))
+      .catch(error => console.log('Action error in getOrders: ', error))
+  }
+}
+
+export function getuserReview(email) {
+  return function (dispatch) {
+    return axios.get(`${URL}/review/user/${email}`)
+      .then(resp => dispatch({ type: GET_USER_REVIEW, payload: resp.data }))
+      .catch(error => console.log('Action error in getOrders: ', error))
+  }
+}
+
+export function getuserOrders(email) {
+  return function (dispatch) {
+    return axios.get(`${URL}/order/${email} `)
+      .then(resp => dispatch({ type: GET_USER_ORDERS, payload: resp.data }))
+      .catch(error => console.log('Action error in getOrders: ', error))
+  }
+}
+
+export function changeStatus(status) {
+  return axios.put(`${URL}/order`, status)
+    .then(resp => console.log('Change status success', resp.data))
+    .catch(error => console.log('Action error in change status: ', error))
+};
+
+export function filterOrder(email) {
+  return {
+    type: FILTER_ORDER,
+    payload: email
+  };
+};
+
+
+export function filterStatus(e) {
+  return {
+    type: FILTER_STATUS,
+    payload: e
+  };
+};
+
+
+export function updateCategorie(id, category) {
+  return function (dispatch) {
+    return axios.put(`${URL}/category/update/${id}`, category)
+      .then(resp => dispatch(console.log('Change categorie success', resp.data)))
+      .catch(error => console.log('Action error in change categorie: ', error))
+  }
+};
+

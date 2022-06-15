@@ -32,7 +32,7 @@ export default function Login() {
     if (Object.keys(errors).length) {
       return alert('Please fill the right way')
     }
-    if(userLogin.email.split('@')[1] === 'gmail.com') {
+    if (userLogin.email.split('@')[1] === 'gmail.com') {
       alert("For Google mails please use Google's sign in")
     } else {
       await dispatch(login(userLogin))
@@ -61,13 +61,13 @@ export default function Login() {
         Login
       </button>
       <div>
-       <Link to={'#'} onClick={() =>{
-        const email = userLogin.email.trim();
-        if(email !== '') {
-          sendMail(userLogin.email);
-          alert("We send a Email, please check your email and follow the instructions");
-        }else{ alert("providing the mail");}
-       }}>Forgot your password?</Link> 
+        <Link to={'#'} onClick={() => {
+          const email = userLogin.email.trim();
+          if (email !== '') {
+            sendMail(userLogin.email);
+            alert("We sent you an Email, please check and follow the instructions");
+          } else { alert("provide an email to restore your password"); }
+        }}>Forgot your password?</Link>
       </div>
     </div>
   );

@@ -4,11 +4,11 @@ import ProductCards from '../ProductCards/ProductCards';
 import Filters from '../Filters/Filters';
 import Search from '../Search/Search';
 import { useDispatch } from 'react-redux';
-import { cartItems } from '../../redux/actions';
+import { cartItems, getorder } from '../../redux/actions';
 
 function Home() {
-  const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
+  const [products, setProducts] = useState([]);
   let dataCart = JSON.parse(localStorage.getItem("cartProduct"));
   // let URL = 'https://54.227.99.93:3001'
   let URL;
@@ -19,6 +19,7 @@ function Home() {
       const response = await axios.get(`${URL}/product/all`);
       setProducts(response.data);
     }
+    dispatch(getorder());
     loadProducts();
     if (dataCart?.length) {
       console.log(dataCart)
