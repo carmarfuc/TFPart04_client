@@ -5,6 +5,7 @@ import ProductCreationForm from '../ProductCreationForm/ProductCreationForm';
 import Users from "./Users";
 import Orders from '../Orders/Orders'
 import Search  from "../Search/Search";
+import NotFound from '../NotFound/NotFound';
 import { getorder} from "../../redux/actions";
 import { useDispatch,useSelector } from "react-redux";
 import axios from "axios";
@@ -46,7 +47,7 @@ export default function AdminPage(props) {
 
 
   if (window.location.href === `${URL}/admin` && localStorage.usertype !== 'Admin') {
-    return <NotFound />
+    return <NotFound/>
   }
 
   return (
