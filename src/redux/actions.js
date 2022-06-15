@@ -138,8 +138,8 @@ export function signUp(user) {
             dispatch({
               type: LOGIN,
               payload: {
-                email: user.email,
-                usertype: 'User'
+                email: resp.data[0].email,
+                usertype: resp.data[0].usertype
               }
             })
             return alert('Successfull login!')
