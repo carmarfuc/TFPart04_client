@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux/es/exports';
 import axios from "axios";
 import ProductCards from '../ProductCards/ProductCards';
 import Filters from '../Filters/Filters';
 import Search from '../Search/Search';
 import { useDispatch } from 'react-redux';
-import { cartItems } from '../../redux/actions';
+import { cartItems, getorder } from '../../redux/actions';
 
 function Home() {
-  const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
+  const [products, setProducts] = useState([]);
   let dataCart = JSON.parse(localStorage.getItem("cartProduct"));
 
   useEffect(() => {
@@ -16,6 +17,7 @@ function Home() {
       const response = await axios.get(`http://localhost:3001/product/all`);
       setProducts(response.data);
     }
+    dispatch(getorder(1));
     loadProducts();
     if (dataCart?.length) {
       console.log(dataCart)

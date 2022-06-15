@@ -19,6 +19,14 @@ import NotFound from './components/NotFound/NotFound';
 import Footer from './components/Footer/Footer'
 import CheckoutCart from './components/Cart/checkoutCart'
 import Password from './components/Password/Password'; //AGCH
+import Orders from './components/Orders/Orders';
+import OrderDetail from './components/Orders/OrderDetail';
+import UserOrder from './components/Orders/UserOrder';
+import CreateCategory from './components/CreateCategory/CreateCategory';
+import Categories from './components/CreateCategory/Categories';
+import ModifyCategory from './components/CreateCategory/Modifycategory';
+
+
 function App() {
 
   const loggedUser = useSelector(state => state.loggedUser)
@@ -38,6 +46,12 @@ function App() {
         <Route path='/details/:id' element={<Details />} />
         <Route path='/cart' element={<ShoppingCart />} />
         <Route path='/admin' element={<AdminPage />} />
+        <Route path='/orders' element={<Orders />} />
+        <Route path='/userOrder/:email' element={<UserOrder />} />
+        <Route path='/OrderDetail/:id' element={<OrderDetail />} />
+        <Route path='/Categories' element={<Categories />} />
+        <Route path='/CreateCategory' element={<CreateCategory />} />
+        <Route path='/ModifyCategory/:idCategori' element={<ModifyCategory />} />
         <Route path='/resources' element={<Resources />} />
         <Route path='/creationform' element={<ProductCreationForm />} />
         <Route path='/modificationForm/:id' element={<ModificationForm />} />
