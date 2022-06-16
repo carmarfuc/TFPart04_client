@@ -12,16 +12,13 @@ export default function Users() {
   process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
 
   async function deletePost(emailUser) {
-    await axios.delete(`https://localhost:3001/user/delete/${emailUser}`);
-    console.log("hola")
+    await axios.delete(`${URL}/user/delete/${emailUser}`);
     alert('Delete successful');
     dispatch(getUser());
   }
 
   console.log(users)
 
-  // await axios.delete(`${URL}/product/delete/${id}`);
-  // https://localhost:3001/user/delete/
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
