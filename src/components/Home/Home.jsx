@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import axios from "axios";
+import React, { useEffect } from 'react';
 import ProductCards from '../ProductCards/ProductCards';
 import Filters from '../Filters/Filters';
 import Search from '../Search/Search';
 import { useDispatch, useSelector } from 'react-redux';
-import { cartItems, getorder, getProducts, getCategories, filterByCategory } from '../../redux/actions';
+import { cartItems, getorder, getProducts, getCategories } from '../../redux/actions';
 
 function Home() {
   const dispatch = useDispatch();
   let dataCart = JSON.parse(localStorage.getItem("cartProduct"));
   const products = useSelector(state => state.products);
   const ctgry = useSelector(state => state.categories);
-  // let URL = 'https://54.227.99.93:3001'
-  let URL;
-  process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
 
   useEffect(() => {
     dispatch(getCategories());

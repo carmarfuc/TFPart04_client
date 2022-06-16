@@ -28,11 +28,6 @@ import ModifyCategory from './components/CreateCategory/Modifycategory';
 import UserPage from './components/UserSite/UserPage';
 
 
-//mapas
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
-import Maps from './components/Map/Maps'
-
 function App() {
 
   const loggedUser = useSelector(state => state.loggedUser)
@@ -64,7 +59,6 @@ function App() {
         <Route path='/modificationForm/:id' element={<ModificationForm />} />
         <Route path='/successOrder' element={<CheckoutCart />} />
         <Route path='/password/supersecreturl/:mail' element={<Password />} />{/*AGCH*/}
-        <Route exact path="/maps" element={<Maps />}></Route>
         <Route path='*' element={<NotFound />} />
       </Routes>
       {
