@@ -30,13 +30,19 @@ function CreateCategory() {
   return (
       <div className={styles.container}>
         <form className={styles.lilcontainer} id='createCategory' onSubmit={e => handleSubmit(e)}>
-          <label>Category id: </label>
-          <input className={styles.dalebro} type="text" name='id' id='categoryId' onChange={e => handleChange(e)}/>
-          <label>Category name: </label>
-          <input className={styles.dalebro} type="text" name='name' id='categoryName' onChange={e => handleChange(e)}/>
-          <label>Description: </label>
-          <input className={styles.dalebro} type="text" name='description' id='categoryDesciption' onChange={e => handleChange(e)}/>
-          <input className={styles.create} type="submit" value='Create Category'/>
+          <label className='font-semibold text-orange-700'>Category id: </label>
+          <div className="tooltip tooltip-right tooltip-warning max-w-xs p-1" data-tip="required">
+          <input className='input input-bordered input-accent w-full max-w-xs' type="text" name='id' id='categoryId' onChange={e => handleChange(e)}/>
+          </div>
+          <label className='font-semibold text-orange-700'>Category name: </label>
+          <div className="tooltip tooltip-right tooltip-warning max-w-xs p-1" data-tip="required">
+          <input className='input input-bordered input-accent w-full max-w-xs' type="text" name='name' id='categoryName' onChange={e => handleChange(e)}/>
+          </div>
+          <label className='font-semibold text-orange-700'>Description: </label>
+          <div className="tooltip tooltip-right tooltip-warning max-w-xs p-1" data-tip="required">
+          <input className='input input-bordered input-accent w-full max-w-xs' type="text" name='description' id='categoryDesciption' onChange={e => handleChange(e)}/>
+          </div>
+          <input className="btn btn-primary mb-5 mt-5" type="submit" value='Create Category'/>
         </form>
         <br />
         {errors.id && <h1>{errors.id}</h1>}

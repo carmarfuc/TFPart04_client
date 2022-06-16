@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon, ShoppingCartIcon } from '@heroicons/react/outline'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { logout } from '../../redux/actions'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
@@ -16,22 +16,25 @@ export default function NavBarBro() {
   let numberOfCartItems = useSelector(state => state.cartItems)
   useEffect(() => {
   }, [numberOfCartItems])
-  const navigate = useNavigate();
   let dataCart = JSON.parse(localStorage.getItem("cartProduct"));
 
   let navigation;
-  localStorage.user ? navigation = [
-    { name: 'Home', href: '/home' },
-    { name: 'Cart', href: '/cart' },
-  ] : navigation = [
-    { name: 'Login', href: '/' },
-    { name: 'Home', href: '/home' },
-    { name: 'Cart', href: '/cart' },
-  ]
-
-  if (localStorage.usertype === 'Admin') {
-    navigation.push({ name: 'Admin', href: '/admin' })
-  }
+  localStorage.user ?
+    localStorage.usertype === 'Admin' ?
+      navigation = [
+        { name: 'Home', href: '/home' },
+        { name: 'Admin panel', href: '/admin' },
+      ]
+      : navigation = [
+        { name: 'Home', href: '/home' },
+        { name: 'Cart', href: '/cart' },
+        { name: 'User panel', href: '/user' },
+      ]
+    : navigation = [
+      { name: 'Login', href: '/' },
+      { name: 'Home', href: '/home' },
+      { name: 'Cart', href: '/cart' },
+    ]
 
   return (
     <Disclosure as="nav" className="bg-primary h-20 mb-2">
@@ -74,19 +77,19 @@ export default function NavBarBro() {
                 <NavLink to="/cart" className="text-white">
                   <div
                     className="bg-secondary p-1 rounded-full text-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white
-                  grid grid-cols-2"
+                  grid grid-cols-2 mr-2"
                   >
                     <div>
                       <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
                     </div>
                     <div>
-                      <p>{dataCart && dataCart.length}</p>
+                      <p className="font-bold">{dataCart ? dataCart.length : 0}</p>
                     </div>
                   </div>
                 </NavLink>
                 {localStorage.user ?
                   <>
-                    <div className='bg-secondary p-1 px-3 rounded-full text-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'>
+                    <div className='bg-secondary p-1 px-3 rounded-full text-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white mr-2'>
                       {localStorage.user.split('@')[0]}
                     </div>
                     <button
@@ -97,11 +100,11 @@ export default function NavBarBro() {
                   </>
                   : <div>
                     <NavLink to="/"
-                      className="bg-secondary p-1 px-3 rounded-full text-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                      className="bg-secondary p-1 px-3 rounded-full text-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white ml-2">
                       Login
                     </NavLink>
                     <NavLink to="/"
-                      className="bg-secondary p-1 px-3 rounded-full text-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                      className="bg-secondary p-1 px-3 rounded-full text-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white ml-2">
                       Sign Up
                     </NavLink>
                   </div>

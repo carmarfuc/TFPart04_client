@@ -47,12 +47,12 @@ function ProductCards({ allProducts }) {
                     })
                         : ''}
                     <br></br>
+                </div>
                     <Pagination
                         productsPerPage={productsPerPage}
                         totalProducts={products.length}
                         paginate={paginate}
                     />
-                </div>
             </div>
         </div>
     );

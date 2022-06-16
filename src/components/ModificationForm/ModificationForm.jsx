@@ -143,111 +143,111 @@ function ModificationForm() {
                 </>
                 :
                 <div className="grid justify-items-center ">
-                <div className="grid grid-cols-2 w-2/3 m-4 p-4 bg-white shadow rounded-lg border ">
-                    <div className="card bg-base-100 ">
-                        <span className="font-bold pt-3 text-lg">Current product data:</span>
-                        <figure className="px-10 pt-3">
-                            <img className="borde border-4 border-primary" src={imageName} alt={product.name} />
-                        </figure>
-                        <div className="card-body items-center text-center">
-                            <div><span className="font-bold">Course name: </span>{product.name}</div>
-                            <div><span className="font-bold">Description: </span>{product.description}</div>
-                            <div><span className="font-bold">Ranking: </span>{product.ranking}</div>
-                            <div><span className="font-bold">Created by: </span>{product.createBy}</div>
-                            <div><span className="font-bold">Stock: </span>{product.stock}</div>
-                            <div><span className="font-bold">Categories: </span>{product?.categories ? product.categories.join(' / ') : ''}</div>
-                            <div><span className="font-bold">Price: </span>{product.price} USD</div>
-                            <p className="text-xs"><span className="font-bold">Product ID: </span> {product.id}</p>
+                    <div className="grid grid-cols-2 w-2/3 m-4 p-4 bg-white shadow rounded-lg border ">
+                        <div className="card bg-base-100 ">
+                            <span className="font-bold pt-3 text-lg">Current product data:</span>
+                            <figure className="px-10 pt-3">
+                                <img className="borde border-4 border-primary" src={imageName} alt={product.name} />
+                            </figure>
+                            <div className="card-body items-center text-center">
+                                <div><span className="font-bold">Course name: </span>{product.name}</div>
+                                <div><span className="font-bold">Description: </span>{product.description}</div>
+                                <div><span className="font-bold">Ranking: </span>{product.ranking}</div>
+                                <div><span className="font-bold">Created by: </span>{product.createBy}</div>
+                                <div><span className="font-bold">Stock: </span>{product.stock}</div>
+                                <div><span className="font-bold">Categories: </span>{product?.categories ? product.categories.join(' / ') : ''}</div>
+                                <div><span className="font-bold">Price: </span>{product.price} USD</div>
+                                <p className="text-xs"><span className="font-bold">Product ID: </span> {product.id}</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="pt-5">
-                        <h1 className="font-bold text-lg pb-5">Modify your course</h1>
+                        <div className="pt-5">
+                            <h1 className="font-bold text-lg pb-5">Modify your course</h1>
 
-                        <div className="flex flex-col justify-center items-center">
-                            <form onSubmit={handleSubmit} >
-                                <div className="flex flex-col justify-center items-center" >
+                            <div className="flex flex-col justify-center items-center">
+                                <form onSubmit={handleSubmit} >
+                                    <div className="flex flex-col justify-center items-center" >
 
-                                    <label>Course name:</label>
-                                    <div className="flex flex-row items-center justify-center indicator">
-                                        <input name="name" onChange={handleInputChange} placeholder="Product's name" className="input input-bordered input-accent w-full max-w-xs" />
+                                        <label>Course name:</label>
+                                        <div className="flex flex-row items-center justify-center indicator">
+                                            <input name="name" onChange={handleInputChange} placeholder="Product's name" className="input input-bordered input-accent w-full max-w-xs" />
+                                        </div>
+                                        {errors.name && input.name ? <span className="indicator-item indicator-middle indicator-center badge badge-warning">{errors.name}</span> : ''}<br />
+
+                                        <label>Description:</label>
+                                        <div className="flex flex-row items-center justify-center indicator mb-2">
+                                            <textarea
+                                                className="textarea textarea-accent"
+                                                placeholder="What`s the course about"
+                                                name="description"
+                                                onChange={handleInputChange}
+                                                rows='3'
+                                                cols='40' ></textarea>
+                                        </div>
+                                        {errors.description && input.description ? <span className="indicator-item indicator-middle indicator-center badge badge-warning">{errors.description}</span> : ''}<br />
+
+                                        <label>Image:</label>
+                                        <label className={input.image?.name ? "btn btn-success w-[150px] cursor-pointer" : "btn btn-secondary w-full max-w-xs cursor-pointer"}>
+                                            {input.image?.name ? "Image Selected" : "Select an image from your device"}
+                                            <input type='file' accept=".png, .jpg, .jpeg" name="image" onChange={handleInputChange} className="bg-transparent w-full max-w-xs cursor-pointer hidden" />
+                                        </label>
+                                        {errors.image && input.image ? <span className="indicator-item indicator-middle indicator-center badge badge-warning">{errors.image}</span> : ''}<br />
+
+                                        <label>ranking:</label>
+                                        <div className="flex flex-row items-center justify-center indicator">
+                                            <input name="ranking" onChange={handleInputChange} placeholder="Ranking" className="input input-bordered input-accent w-full max-w-xs" />
+                                        </div>
+                                        {errors.ranking && input.ranking ? <span className="indicator-item indicator-middle indicator-center badge badge-warning">{errors.ranking}</span> : ''}<br />
+
+                                        <label>Created by:</label>
+                                        <div className="flex flex-row items-center justify-center indicator">
+                                            <input name="createBy" onChange={handleInputChange} placeholder="Created by" className="input input-bordered input-accent w-full max-w-xs" />
+                                        </div>
+                                        {errors.createBy && input.createBy ? <span className="indicator-item indicator-middle indicator-center badge badge-warning">{errors.createBy}</span> : ''}<br />
+
+
+                                        <label>Price:</label>
+                                        <div className="flex flex-row items-center justify-center indicator">
+                                            <input name="price" onChange={handleInputChange} placeholder="0.00 USD" className="input input-bordered input-accent w-full max-w-xs" />
+                                        </div>
+                                        {errors.price && input.price ? <span className="indicator-item indicator-middle indicator-center badge badge-warning">{errors.price}</span> : ''}<br />
+
+
+                                        <label>Vacancies:</label>
+                                        <div className="flex flex-row items-center justify-center indicator">
+                                            <input name="stock" onChange={handleInputChange} placeholder="Stock available" className="input input-bordered input-accent w-full max-w-xs" />
+                                        </div>
+                                        {(errors.stock && input.stock) ? <span className="indicator-item indicator-middle indicator-center badge badge-warning">{errors.stock}</span> : ''}<br />
+
+                                        <label>Categories:</label>
                                     </div>
-                                    {errors.name && input.name ? <span className="indicator-item indicator-middle indicator-center badge badge-warning">{errors.name}</span> : ''}<br />
 
-                                    <label>Description:</label>
-                                    <div className="flex flex-row items-center justify-center indicator mb-2">
-                                        <textarea
-                                            className="textarea textarea-accent"
-                                            placeholder="What`s the course about"
-                                            name="description"
-                                            onChange={handleInputChange}
-                                            rows='3'
-                                            cols='40' ></textarea>
+                                    <div className="flex flex-row flex-wrap justify-between w-[21rem]">
+                                        {allCategories ? allCategories.map(ctgry => {
+                                            return (
+                                                <div key={ctgry.id}>
+                                                    <label className="cursor-pointer label">
+                                                        <span className="label-text mr-1">{ctgry.name}</span>
+                                                        <input type='checkbox'
+                                                            id={ctgry.name}
+                                                            name='categories'
+                                                            onChange={handleCheckboxChange}
+                                                            value={JSON.stringify(
+                                                                ctgry.id)}
+                                                            className="checkbox checkbox-secondary" />
+                                                    </label>
+                                                </div>
+                                            )
+                                        }) : 'No funca'}
                                     </div>
-                                    {errors.description && input.description ? <span className="indicator-item indicator-middle indicator-center badge badge-warning">{errors.description}</span> : ''}<br />
 
-                                    <label>Image:</label>
-                                    <label className={input.image?.name ? "btn btn-success w-[150px] cursor-pointer" : "btn btn-secondary w-full max-w-xs cursor-pointer"}>
-                                        {input.image?.name ? "Image Selected" : "Select an image from your device"}
-                                        <input type='file' accept=".png, .jpg, .jpeg" name="image" onChange={handleInputChange} className="bg-transparent w-full max-w-xs cursor-pointer hidden" />
-                                    </label>
-                                    {errors.image && input.image ? <span className="indicator-item indicator-middle indicator-center badge badge-warning">{errors.image}</span> : ''}<br />
-
-                                    <label>ranking:</label>
-                                    <div className="flex flex-row items-center justify-center indicator">
-                                        <input name="ranking" onChange={handleInputChange} placeholder="Ranking" className="input input-bordered input-accent w-full max-w-xs" />
-                                    </div>
-                                    {errors.ranking && input.ranking ? <span className="indicator-item indicator-middle indicator-center badge badge-warning">{errors.ranking}</span> : ''}<br />
-
-                                    <label>Created by:</label>
-                                    <div className="flex flex-row items-center justify-center indicator">
-                                        <input name="createBy" onChange={handleInputChange} placeholder="Created by" className="input input-bordered input-accent w-full max-w-xs" />
-                                    </div>
-                                    {errors.createBy && input.createBy ? <span className="indicator-item indicator-middle indicator-center badge badge-warning">{errors.createBy}</span> : ''}<br />
-
-
-                                    <label>Price:</label>
-                                    <div className="flex flex-row items-center justify-center indicator">
-                                        <input name="price" onChange={handleInputChange} placeholder="0.00 USD" className="input input-bordered input-accent w-full max-w-xs" />
-                                    </div>
-                                    {errors.price && input.price ? <span className="indicator-item indicator-middle indicator-center badge badge-warning">{errors.price}</span> : ''}<br />
-
-
-                                    <label>Vacancies:</label>
-                                    <div className="flex flex-row items-center justify-center indicator">
-                                        <input name="stock" onChange={handleInputChange} placeholder="Stock available" className="input input-bordered input-accent w-full max-w-xs" />
-                                    </div>
-                                    {(errors.stock && input.stock) ? <span className="indicator-item indicator-middle indicator-center badge badge-warning">{errors.stock}</span> : ''}<br />
-
-                                    <label>Categories:</label>
-                                </div>
-
-                                <div className="flex flex-row flex-wrap justify-between w-[21rem]">
-                                    {allCategories ? allCategories.map(ctgry => {
-                                        return (
-                                            <div key={ctgry.id}>
-                                                <label className="cursor-pointer label">
-                                                    <span className="label-text mr-1">{ctgry.name}</span>
-                                                    <input type='checkbox'
-                                                        id={ctgry.name}
-                                                        name='categories'
-                                                        onChange={handleCheckboxChange}
-                                                        value={JSON.stringify(
-                                                            ctgry.id)}
-                                                        className="checkbox checkbox-secondary" />
-                                                </label>
-                                            </div>
-                                        )
-                                    }) : 'No funca'}
-                                </div>
-
-                                <button type='submit' className="btn btn-primary">
-                                    Modify product
-                                </button>
-                            </form >
+                                    <button type='submit' className="btn btn-primary">
+                                        Modify product
+                                    </button>
+                                </form >
+                            </div >
                         </div >
                     </div >
-                </div >
                 </div>}
         </>
     )
