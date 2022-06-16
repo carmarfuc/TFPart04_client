@@ -30,7 +30,8 @@ function ProductIndividualCard({
             }
 
         });
-
+        let userType = localStorage.getItem('usertype')
+        if (userType === 'Admin') return alert('You can not buy as an administrator')
         if (!exist) {
             dispatch(cartItems(prodCart.length + 1))
             prodCart.push({ idProduct: addcar.id, description: addcar.name, price: addcar.price });
