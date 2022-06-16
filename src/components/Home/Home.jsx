@@ -3,24 +3,22 @@ import axios from "axios";
 import ProductCards from '../ProductCards/ProductCards';
 import Filters from '../Filters/Filters';
 import Search from '../Search/Search';
-import { useDispatch } from 'react-redux';
-import { cartItems, getorder } from '../../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartItems, getorder, getProducts, getCategories, filterByCategory } from '../../redux/actions';
 
 function Home() {
   const dispatch = useDispatch();
-  const [products, setProducts] = useState([]);
   let dataCart = JSON.parse(localStorage.getItem("cartProduct"));
+  const products = useSelector(state => state.products);
+  const ctgry = useSelector(state => state.categories);
   // let URL = 'https://54.227.99.93:3001'
   let URL;
   process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
 
   useEffect(() => {
-    const loadProducts = async () => {
-      const response = await axios.get(`${URL}/product/all`);
-      setProducts(response.data);
-    }
+    dispatch(getCategories());
+    dispatch(getProducts());
     dispatch(getorder());
-    loadProducts();
     if (dataCart?.length) {
       console.log(dataCart)
       dispatch(cartItems(dataCart.length))
@@ -31,7 +29,7 @@ function Home() {
     <>
       <div>
         <Search allProducts={products} />
-        <Filters />
+        <Filters categories={ctgry} />
         <ProductCards allProducts={products} />
       </div>
     </>
