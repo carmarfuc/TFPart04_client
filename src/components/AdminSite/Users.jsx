@@ -80,7 +80,7 @@ export default function Users() {
                     {u.usertype}
                   </td>
                   <th>
-                    <button id={u.email} name={u.usertype} onClick={e => handlePermission(e)}>Change to {u.usertype === 'Admin' ? 'User' : 'Admin'}</button>
+                  <button className="btn" id={u.email} name={u.usertype} onClick={e => handlePermission(e)}>Change to {u.usertype === 'Admin' ? 'User' : 'Admin'}</button>
                   </th>
                   <th>
                     <button onClick={() => deletePost(u.email)}>
