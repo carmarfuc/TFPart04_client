@@ -21,7 +21,7 @@ const CartItem = () => {
   let dataCart = JSON.parse(localStorage.getItem("cartProduct"));
 
   const MpPaymentHandler = async (cookies) => {
-    if (dataCart) {
+    if (dataCart && dataCart.length > 0) {
       const response = await axios.post(backendURL, cookies);
       window.location.href = response.data.init_point;
     }
@@ -58,10 +58,17 @@ const CartItem = () => {
       dispatch(createOrder(orderData));
       localStorage.removeItem("cartProduct");
       setCart(dataCart);
-      // navigate('/successOrder')
-    } else {
-      alert('Cart is empty')
     }
+    if (!dataCart) {
+      alert("Cart is empty")
+    }
+    if (dataCart.length === 0) {
+      alert("Cart is empty")
+    }
+      // navigate('/successOrder')
+    // } else {
+    //   alert('Cart is empty')
+    // }
   }
 
 
