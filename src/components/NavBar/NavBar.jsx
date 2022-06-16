@@ -74,7 +74,7 @@ export default function NavBarBro() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <NavLink to="/cart" className="text-white">
+                {localStorage.usertype === 'Admin' ? '' : <NavLink to="/cart" className="text-white">
                   <div
                     className="bg-secondary p-1 rounded-full text-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white
                   grid grid-cols-2 mr-2"
@@ -86,7 +86,7 @@ export default function NavBarBro() {
                       <p className="font-bold">{dataCart ? dataCart.length : 0}</p>
                     </div>
                   </div>
-                </NavLink>
+                </NavLink>}
                 {localStorage.user ?
                   <>
                     <div className='bg-secondary p-1 px-3 rounded-full text-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white mr-2'>

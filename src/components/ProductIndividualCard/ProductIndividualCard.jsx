@@ -30,7 +30,8 @@ function ProductIndividualCard({
             }
 
         });
-
+        let userType = localStorage.getItem('usertype')
+        if (userType === 'Admin') return alert('You can not buy as an administrator')
         if (!exist) {
             dispatch(cartItems(prodCart.length + 1))
             prodCart.push({ idProduct: addcar.id, description: addcar.name, price: addcar.price });
@@ -74,7 +75,7 @@ function ProductIndividualCard({
                 :
                 <div class="card card-compact bg-orange-100 shadow-xl my-4 w-[384px] h-[429px]">
                     <NavLink to={`/details/${id}`}>
-                        <figure><img className='w-[384] h-[253px] object-contain' src={imageName} alt={name} /></figure>
+                        <figure><img className='w-[384] h-[253px]' src={imageName} alt={name} /></figure>
                     </NavLink>
                     <div className="card-body">
                         <h2 className="card-title">{name}</h2>

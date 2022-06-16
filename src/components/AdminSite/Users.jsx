@@ -12,15 +12,13 @@ export default function Users() {
   process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
 
   async function deletePost(emailUser) {
-    await axios.delete(`https://localhost:3001/user/delete/${emailUser}`);
+    await axios.delete(`${URL}/user/delete/${emailUser}`);
     alert('Delete successful');
     dispatch(getUser());
   }
 
   console.log(users)
 
-  // await axios.delete(`${URL}/product/delete/${id}`);
-  // https://localhost:3001/user/delete/
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
@@ -82,7 +80,7 @@ export default function Users() {
                     {u.usertype}
                   </td>
                   <th>
-                    <button id={u.email} name={u.usertype} onClick={e => handlePermission(e)}>Change to {u.usertype === 'Admin' ? 'User' : 'Admin'}</button>
+                  <button className="btn" id={u.email} name={u.usertype} onClick={e => handlePermission(e)}>Change to {u.usertype === 'Admin' ? 'User' : 'Admin'}</button>
                   </th>
                   <th>
                     <button onClick={() => deletePost(u.email)}>
