@@ -87,9 +87,6 @@ function Details() {
               <div className="mb-2 text-sm">{product.categories}
               </div>
             </div>
-            <div className="w-full grid justify-items-center">
-              <button className="btn btn-primary">Add To Cart</button>
-            </div>
           </div>
         </div>
         <div className='mt-8'>
