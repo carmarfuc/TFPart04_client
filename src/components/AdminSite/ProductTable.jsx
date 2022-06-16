@@ -9,13 +9,12 @@ import axios from "axios";
 
 export default function ProductTable() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const allProduct =useSelector(state => state.products);
   const filteredProducts = useSelector(state => state.filteredProducts);
   const products = filteredProducts.length ? filteredProducts : allProduct;
 
   let URL;
-  process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
+  process.env.NODE_ENV === "development" ? URL = "<http://localhost:3001>" : URL = "https://54.227.99.93:3001";
 
   async function deletePost(id) {
     await axios.delete(`${URL}/product/delete/${id}`);
