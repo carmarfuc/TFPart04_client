@@ -100,11 +100,11 @@ export default function NavBarBro() {
                   </>
                   : <div>
                     <NavLink to="/"
-                      className="bg-secondary p-1 px-3 rounded-full text-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                      className="bg-secondary p-1 px-3 rounded-full text-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white ml-2">
                       Login
                     </NavLink>
                     <NavLink to="/"
-                      className="bg-secondary p-1 px-3 rounded-full text-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                      className="bg-secondary p-1 px-3 rounded-full text-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white ml-2">
                       Sign Up
                     </NavLink>
                   </div>
