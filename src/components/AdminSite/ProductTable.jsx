@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/actions";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 
 
 
-export default function ProductTable({ allProducts }) {
+export default function ProductTable() {
   const dispatch = useDispatch();
-  const allProduct = allProducts;
+  const navigate = useNavigate();
+  const allProduct =useSelector(state => state.products);
   const filteredProducts = useSelector(state => state.filteredProducts);
   const products = filteredProducts.length ? filteredProducts : allProduct;
 
@@ -19,7 +20,7 @@ export default function ProductTable({ allProducts }) {
   async function deletePost(id) {
     await axios.delete(`${URL}/product/delete/${id}`);
     alert('Delete successful');
-    window.location.reload(true);
+    dispatch(getProducts());
   }
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import React, { useEffect,useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../redux/actions";
-import { NavLink } from "react-router-dom";
+import { NavLink,useNavigate } from "react-router-dom";
 import axios from "axios";
 
 
@@ -10,23 +10,16 @@ import axios from "axios";
 export default function Categories() {
   const dispatch = useDispatch();
   const categories = useSelector(state => state.categories)
-  const [Alert, setAlert] = useState(false);
-  
 
+  
+  process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
 
   async function deletePost(id) {
-    await axios.delete(`http://localhost:3001/category/delete/${id}`);
-    alerta();
+    await axios.delete(`${URL}/category/delete/${id}`);
+    alert('Delete successful');
+    dispatch(getCategories());
   }
   
-  function alerta(){
-    setAlert(true);
-    alert("Categorie delete success")
-    setTimeout(function(){
-      setAlert(false);
-      window.location.reload(true);
-  }, 1000);
-  }
 
   useEffect(() => {
     dispatch(getCategories());

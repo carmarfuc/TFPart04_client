@@ -133,7 +133,7 @@ export default function AdminPage(props) {
           <div className=" col-start-4 col-end-7 m-2 p-2">
             {Page === "course" && (
               <div>
-                <ProductTable allProducts={products} />
+                <ProductTable />
               </div>
             )}
             {Page === "Category" && (
