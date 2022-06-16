@@ -96,11 +96,11 @@ export function rootReducer(state = initialState, { type, payload }) {
       }
 
     case LOADINGIMAGE:
-      return {
-        ...state,
-        imageLoading: payload
-      }
-
+        return {
+          ...state,
+          imageLoading: payload
+        }
+      
     case GET_USERS:
       return { ...state, users: payload }
 
