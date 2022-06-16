@@ -16,10 +16,6 @@ export default function OrderDetail() {
   const orderSingle = orderDetails.orders_pos;
   const review = userReview.map((u) => u.productId);
 
-  console.log(products)
-
-  console.log("filter", review);
-
   useEffect(() => {
     dispatch(getuserReview(userEmail));
   }, [dispatch]);
@@ -78,10 +74,10 @@ export default function OrderDetail() {
                               </label>
                               <div
                                 tabindex="0"
-                                class="dropdown-content card card-compact w-64 p-2 shadow bg-primary text-primary-content"
+                                class="dropdown-content card card-compact w-auto p-2 shadow bg-primary text-primary-content"
                               >
                                 <div class="card-body">
-                                  <LeaveReview></LeaveReview>
+                                  <LeaveReview productId={o.idProduct}></LeaveReview>
                                 </div>
                               </div>
                             </div>

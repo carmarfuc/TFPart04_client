@@ -74,6 +74,7 @@ function ProductCreationForm() {
         }));
     };
 
+
     const handleCheckboxChange = function (e) {
         if (input.categories.includes(e.target.value)) {
             setInput({
@@ -112,6 +113,7 @@ function ProductCreationForm() {
                         e.target.reset();
                     }).then(res => {
                         navigate('/home')
+                        dispatch(loadingImage(false))
                     })
             } catch (err) {
                 console.log(err.message);
@@ -122,118 +124,252 @@ function ProductCreationForm() {
     };
     console.log(errors, input)
     return (
-        <>
-            {loading ?
-                <>
-                    <div class="alert shadow-lg">
-                        <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-info flex-shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span>Creating product, please wait until you're redirected</span>
-                        </div>
+      <>
+        {loading ? (
+            <div className='w-[500px]'>
+            <div className="alert alert-success shadow-lg w-full">
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="stroke-current flex-shrink-0 h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span>
+                  Creating product, please wait until you're redirected
+                </span>
+              </div>
+            </div>
+          </div>
+
+        ) : (
+          <div>
+            <h1 className="font-bold text-lg pb-5">Create your course</h1>
+
+            <div className="flex flex-col justify-center items-center">
+              <form onSubmit={handleSubmit}>
+                <div className="flex flex-col justify-center items-center">
+                  <label>Course name:</label>
+                  <div
+                    className="tooltip tooltip-right tooltip-warning max-w-xs p-1"
+                    data-tip="required"
+                  >
+                    <div class="flex flex-row items-center justify-center indicator">
+                      <input
+                        name="name"
+                        onChange={handleInputChange}
+                        placeholder="Product's name"
+                        class="input input-bordered input-accent w-full max-w-xs"
+                      />
                     </div>
-                </>
-                :
-                <div>
-                    <h1 className="font-bold text-lg pb-5">Create your course</h1>
+                  </div>
+                  {errors.name ? (
+                    <span class="indicator-item indicator-middle indicator-center badge badge-warning">
+                      {errors.name}
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                  <br />
 
-                    <div className="flex flex-col justify-center items-center">
-                        <form onSubmit={handleSubmit} >
-                            <div className="flex flex-col justify-center items-center" >
-                                <label>Course name:</label>
-                                <div className="tooltip tooltip-right tooltip-warning max-w-xs p-1" data-tip="required">
-                                    <div class="flex flex-row items-center justify-center indicator">
-                                        <input name="name" onChange={handleInputChange} placeholder="Product's name" class="input input-bordered input-accent w-full max-w-xs" />
-                                    </div>
-                                </div>
-                                {errors.name ? <span class="indicator-item indicator-middle indicator-center badge badge-warning">{errors.name}</span> : ''}<br />
+                  <label>Description:</label>
+                  <div class="flex flex-row items-center justify-center indicator ">
+                    <div
+                      className="tooltip tooltip-right tooltip-warning w-18 p-1 "
+                      data-tip="required"
+                    >
+                      <textarea
+                        class="textarea textarea-accent"
+                        placeholder="What`s the course about"
+                        name="description"
+                        onChange={handleInputChange}
+                        rows="3"
+                        cols="40"
+                      ></textarea>
+                    </div>
+                  </div>
+                  {errors.description ? (
+                    <span class="indicator-item indicator-middle indicator-center badge badge-warning">
+                      {errors.description}
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                  <br />
 
-                                <label>Description:</label>
-                                <div class="flex flex-row items-center justify-center indicator ">
-                                    <div className="tooltip tooltip-right tooltip-warning w-18 p-1 " data-tip="required">
-                                        <textarea
-                                            class="textarea textarea-accent"
-                                            placeholder="What`s the course about"
-                                            name="description"
-                                            onChange={handleInputChange}
-                                            rows='3'
-                                            cols='40' >
-                                        </textarea>
-                                    </div>
-                                </div>
-                                {errors.description ? <span class="indicator-item indicator-middle indicator-center badge badge-warning">{errors.description}</span> : ''}<br />
+                  <label>Image:</label>
+                  <label
+                    className={
+                      input.image?.name
+                        ? "btn btn-success w-[150px] cursor-pointer"
+                        : "btn btn-secondary w-full max-w-xs cursor-pointer"
+                    }
+                  >
+                    {input.image?.name
+                      ? "Image Selected"
+                      : "Select an image from your device"}
+                    <input
+                      type="file"
+                      accept=".png, .jpg, .jpeg"
+                      name="image"
+                      onChange={handleInputChange}
+                      className="bg-transparent w-full max-w-xs cursor-pointer hidden"
+                    />
+                  </label>
+                  {errors.image ? (
+                    <span class="indicator-item indicator-middle indicator-center badge badge-warning">
+                      {errors.image}
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                  <br />
 
-                                <label>Image:</label>
-                                <label className={input.image?.name ? "btn btn-success w-[150px] cursor-pointer" : "btn btn-secondary w-full max-w-xs cursor-pointer"}>
-                                    {input.image?.name ? "Image Selected" : "Select an image from your device"}
-                                    <input type='file' accept=".png, .jpg, .jpeg" name="image" onChange={handleInputChange} className="bg-transparent w-full max-w-xs cursor-pointer hidden" />
-                                </label>
-                                {errors.image ? <span class="indicator-item indicator-middle indicator-center badge badge-warning">{errors.image}</span> : ''}<br />
+                  <label>ranking:</label>
+                  <div
+                    className="tooltip tooltip-right tooltip-warning max-w-xs p-1"
+                    data-tip="required"
+                  >
+                    <div class="flex flex-row items-center justify-center indicator">
+                      <input
+                        name="ranking"
+                        onChange={handleInputChange}
+                        placeholder="Ranking"
+                        class="input input-bordered input-accent w-full max-w-xs"
+                      />
+                    </div>
+                  </div>
+                  {errors.ranking ? (
+                    <span class="indicator-item indicator-middle indicator-center badge badge-warning">
+                      {errors.ranking}
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                  <br />
 
-                                <label>ranking:</label>
-                                <div className="tooltip tooltip-right tooltip-warning max-w-xs p-1" data-tip="required">
-                                    <div class="flex flex-row items-center justify-center indicator">
-                                        <input name="ranking" onChange={handleInputChange} placeholder="Ranking" class="input input-bordered input-accent w-full max-w-xs" />
-                                    </div>
-                                </div>
-                                {errors.ranking ? <span class="indicator-item indicator-middle indicator-center badge badge-warning">{errors.ranking}</span> : ''}<br />
+                  <label>Created by:</label>
+                  <div
+                    className="tooltip tooltip-right tooltip-warning max-w-xs p-1"
+                    data-tip="required"
+                  >
+                    <div class="flex flex-row items-center justify-center indicator">
+                      <input
+                        name="createBy"
+                        onChange={handleInputChange}
+                        placeholder="Created by"
+                        class="input input-bordered input-accent w-full max-w-xs"
+                      />
+                    </div>
+                  </div>
+                  {errors.createBy ? (
+                    <span class="indicator-item indicator-middle indicator-center badge badge-warning">
+                      {errors.createBy}
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                  <br />
 
-                                <label>Created by:</label>
-                                <div className="tooltip tooltip-right tooltip-warning max-w-xs p-1" data-tip="required">
-                                    <div class="flex flex-row items-center justify-center indicator">
-                                        <input name="createBy" onChange={handleInputChange} placeholder="Created by" class="input input-bordered input-accent w-full max-w-xs" />
-                                    </div>
-                                </div>
-                                {errors.createBy ? <span class="indicator-item indicator-middle indicator-center badge badge-warning">{errors.createBy}</span> : ''}<br />
+                  <label>Price:</label>
+                  <div
+                    className="tooltip tooltip-right tooltip-warning max-w-xs p-1"
+                    data-tip="required"
+                  >
+                    <div className="flex flex-row items-center justify-center indicator">
+                      <input
+                        name="price"
+                        onChange={handleInputChange}
+                        placeholder="0.00 USD"
+                        className="input input-bordered input-accent w-full max-w-xs"
+                      />
+                    </div>
+                  </div>
+                  {errors.price ? (
+                    <span className="indicator-item indicator-middle indicator-center badge badge-warning">
+                      {errors.price}
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                  <br />
+                  <label>Vacancies:</label>
+                  <div
+                    className="tooltip tooltip-right tooltip-warning max-w-xs p-1"
+                    data-tip="required"
+                  >
+                    <div class="flex flex-row items-center justify-center indicator">
+                      <input
+                        name="stock"
+                        onChange={handleInputChange}
+                        placeholder="Stock available"
+                        class="input input-bordered input-accent w-full max-w-xs"
+                      />
+                    </div>
+                  </div>
+                  {errors.stock ? (
+                    <span class="indicator-item indicator-middle indicator-center badge badge-warning">
+                      {errors.stock}
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                  <br />
 
-                                <label>Price:</label>
-                                <div className="tooltip tooltip-right tooltip-warning max-w-xs p-1" data-tip="required">
+                  <label>Categories:</label>
+                </div>
+                <div
+                  className="tooltip tooltip-right tooltip-warning max-w-xs"
+                  data-tip="required"
+                >
+                  {errors.categories ? (
+                    <span class="indicator-item indicator-middle indicator-center badge badge-warning">
+                      {errors.categories}
+                    </span>
+                  ) : null}
+                  <br />
 
-                                    <div className="flex flex-row items-center justify-center indicator">
-                                        <input name="price" onChange={handleInputChange} placeholder="0.00 USD" className="input input-bordered input-accent w-full max-w-xs" />
-                                    </div>
-                                </div>
-                                {errors.price ? <span className="indicator-item indicator-middle indicator-center badge badge-warning">{errors.price}</span> : ''}<br />
-                                <label>Vacancies:</label>
-                                <div className="tooltip tooltip-right tooltip-warning max-w-xs p-1" data-tip="required">
-                                    <div class="flex flex-row items-center justify-center indicator">
-                                        <input name="stock" onChange={handleInputChange} placeholder="Stock available" class="input input-bordered input-accent w-full max-w-xs" />
-                                    </div>
-                                </div>
-                                {errors.stock ? <span class="indicator-item indicator-middle indicator-center badge badge-warning">{errors.stock}</span> : ''}<br />
-
-                                <label>Categories:</label>
+                  <div className="flex flex-row flex-wrap justify-between w-[21rem]">
+                    {allCategories
+                      ? allCategories.map((ctgry) => {
+                          return (
+                            <div key={ctgry.id}>
+                              <label class="cursor-pointer label">
+                                <span class="label-text mr-1">
+                                  {ctgry.name}
+                                </span>
+                                <input
+                                  type="checkbox"
+                                  id={ctgry.name}
+                                  name="categories"
+                                  onChange={handleCheckboxChange}
+                                  value={JSON.stringify(ctgry.id)}
+                                  class="checkbox checkbox-secondary"
+                                />
+                              </label>
                             </div>
-                            <div className="tooltip tooltip-right tooltip-warning max-w-xs" data-tip="required">
-                                {errors.categories ? <span class="indicator-item indicator-middle indicator-center badge badge-warning">{errors.categories}</span> : null}<br />
-
-                                <div className="flex flex-row flex-wrap justify-between w-[21rem]">
-                                    {allCategories ? allCategories.map(ctgry => {
-                                        return (
-                                            <div key={ctgry.id}>
-                                                <label class="cursor-pointer label">
-                                                    <span class="label-text mr-1">{ctgry.name}</span>
-                                                    <input type='checkbox'
-                                                        id={ctgry.name}
-                                                        name='categories'
-                                                        onChange={handleCheckboxChange}
-                                                        value={JSON.stringify(
-                                                            ctgry.id)} class="checkbox checkbox-secondary" />
-                                                </label>
-                                            </div>
-                                        )
-                                    }) : 'No funca'}
-
-
-                                </div>
-                            </div><br></br>
-                            <button type='submit' class="btn btn-primary mb-5 mt-5">
-                                Create product
-                            </button>
-                        </form>
-                    </div>
-                </div >
-            }
-        </>);
+                          );
+                        })
+                      : "No funca"}
+                  </div>
+                </div>
+                <br></br>
+                <button type="submit" class="btn btn-primary mb-5 mt-5">
+                  Create product
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
+      </>
+    );
 };
 
 export const validate = function (input) {
