@@ -3,34 +3,12 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createReview } from '../../redux/actions';
 
-function LeaveReview() {
+function LeaveReview(productId) {
     const dispatch = useDispatch();
     const userEmail = localStorage.getItem("user")
     const navigate = useNavigate()
 
-    //CONNECT WITH REAL DATA WHEN THE ROUTE IS MODIFIED FROM BACK. CHANGE USER ID FOR USER EMAIL.
-    let userData = {
-        name: 'Pepe Grillo',
-        id: '1'
-    }
-
-    let product =
-    {
-        id: 'c461032e-bd5a-4271-aa46-e495ff3c0b36',
-        name: 'python',
-        description: 'En este curso aprenderás desde las bases de Python hacia temas más avanzados del lenguaje',
-        image: 'https://',
-        ranking: 4,
-        price: 9,
-        stock: 60,
-        categories: [
-            'desarrollo'
-        ]
-    }
-
-    let productData = {
-
-    }
+    let productData = {}
 
     let handleChange = (e) => {
         productData = {
@@ -38,14 +16,15 @@ function LeaveReview() {
             [e.target.name]: e.target.value
         }
     }
+    console.log('Prod data: ',productData)
     let handleSubmit = async (e) => {
         e.preventDefault();
         productData = {
             ...productData,
             userEmail: userEmail,
-            productId: product.id,
-            userId: userData.id
+            productId: productId
         }
+        alert('PERO QUE RAYOS MANDO', productData)
         await dispatch(createReview(productData));
         navigate('/user')
     }
@@ -59,7 +38,7 @@ function LeaveReview() {
                     </div>
                     <div>
                         <form onSubmit={handleSubmit} className='mt-1'>
-                            <label className='font-semibold'>{`¡${userData.name}, let the others know what do you think about the ${product.name} course and rate it!`}</label><br />
+                            <label className='font-semibold'>{`¡${userEmail.split('@')[0]}, let the others know what do you think about the course and rate it!`}</label><br />
                             <textarea placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs mt-2" name='description' onChange={handleChange}></textarea>
                             <div className="rating">
                                 <input type="radio" name="ranking" className="mask mask-star-2 bg-accent" onChange={handleChange} value="1" />

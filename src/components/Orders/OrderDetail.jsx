@@ -69,7 +69,7 @@ export default function OrderDetail() {
                                 class="dropdown-content card card-compact w-64 p-2 shadow bg-primary text-primary-content"
                               >
                                 <div class="card-body">
-                                  <LeaveReview></LeaveReview>
+                                  <LeaveReview productId={o.idProduct}></LeaveReview>
                                 </div>
                               </div>
                             </div>
