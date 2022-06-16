@@ -44,7 +44,9 @@ export default function ProductTable({ allProducts }) {
           {/* <!-- row 1 --> */}
           {products &&
             products.map((product) => {
-              const imageName = '../../img_products/' + product.image + '.jpg';
+              const imageName = product.image.includes('product') ?
+              '../../img_products/' + product.image + '.jpg' :
+              `https://res.cloudinary.com/da42wdmjv/image/upload/v1654727380/${product.image}`
 
               return (
                 <tr>
