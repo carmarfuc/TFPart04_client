@@ -30,19 +30,10 @@ export default function Signup() {
 
   async function handleSignUp(e) {
     e.preventDefault()
-    let actualInput = Object.keys(userSignup);
-    let isValid = true;
-    actualInput.forEach(key => {
-      if (userSignup[key].includes(' ')) {
-        isValid = false;
-        return;
-      };
-    })
-    if (!isValid) return alert('No blank spaces allowed!');
     if (Object.keys(errors).length) {
       return alert('Please, complete all the fields with the correct information')
     }
-    if(userSignup.email.split('@')[1] === 'gmail.com') {
+    if (userSignup.email.split('@')[1] === 'gmail.com') {
       alert("For Google mails please use Google's sign in")
     } else {
       await dispatch(signUp(userSignup))
