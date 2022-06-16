@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { changeStatus,filterOrder,getorder,filterStatus, orderStatus} from "../../redux/actions";
+import { changeStatus,filterOrder,getorder,filterStatus} from "../../redux/actions";
 import axios from "axios";
 
 
@@ -52,6 +52,19 @@ export default function UserOrder() {
     
   };
 
+
+  let arreglounico=[];
+
+
+  for (let i = 0; i < status.length; i++) {
+    if(arreglounico.includes(status[i])){
+      console.log("se repite " + status[i])
+    }
+    else{
+      arreglounico.push(status[i])
+    }
+  }
+
   return (
     <div className="grid justify-items-center">
     <div className="bg-white w-2/3 rounded-lg shadow m-4" >
@@ -73,7 +86,7 @@ export default function UserOrder() {
             >
                 <option disabled value='true' selected>Filter status</option>
                 <option value='all'>All</option>
-                {status ? status.map((o) => {
+                {arreglounico ? arreglounico.map((o) => {
                     return (
                         <option value={o}>{o}</option>
                     )

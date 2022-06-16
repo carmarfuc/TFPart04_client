@@ -57,7 +57,9 @@ export default function Orders() {
                       </div>
                     </td>
                     <td>
+                    <NavLink to={`/userOrder/${order}`}>
                       <div class="font_bold"> view Orders</div>
+                      </NavLink>
                     </td>
                     <td>
 

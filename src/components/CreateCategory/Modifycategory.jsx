@@ -40,7 +40,7 @@ export default function ModifyCategory() {
 
     dispatch(updateCategorie(idCategori, category))
     document.getElementById('Update').reset()
-    navigate("/Admin")
+    navigate('/admin');
   }
   return (
       <div className={styles.container}>

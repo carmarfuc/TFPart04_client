@@ -11,7 +11,16 @@ export default function Users() {
   let URL;
   process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
 
+  async function deletePost(emailUser) {
+    await axios.delete(`https://localhost:3001/user/delete/${emailUser}`);
+    alert('Delete successful');
+    dispatch(getUser());
+  }
 
+  console.log(users)
+
+  // await axios.delete(`${URL}/product/delete/${id}`);
+  // https://localhost:3001/user/delete/
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
@@ -52,11 +61,13 @@ export default function Users() {
               <th>Name</th>
               <th>User type</th>
               <th>Permissions</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {users.length ?
               users.map(u => {
+                console.log(u.email)
                 return <tr>
 
                   <td>
@@ -69,11 +80,27 @@ export default function Users() {
                   </td>
                   <td>
                     {u.usertype}
-                    <br />
-                    <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
                   </td>
                   <th>
                     <button id={u.email} name={u.usertype} onClick={e => handlePermission(e)}>Change to {u.usertype === 'Admin' ? 'User' : 'Admin'}</button>
+                  </th>
+                  <th>
+                    <button onClick={() => deletePost(u.email)}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6 btn-ghost "
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
+                      </svg>
+                    </button>
                   </th>
                 </tr>
               })
