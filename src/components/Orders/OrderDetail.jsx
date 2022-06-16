@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getorderbyid, getuserReview } from "../../redux/actions";
+import { getorderbyid, getProducts, getuserReview } from "../../redux/actions";
 import LeaveReview from "../LeaveReview/LeaveReview";
 
 export default function OrderDetail() {
@@ -10,10 +10,13 @@ export default function OrderDetail() {
   let userEmail = localStorage.user;
   let usertype = localStorage.usertype;
   const dispatch = useDispatch();
+  const products = useSelector((state) => state.products);
   const orderDetails = useSelector((state) => state.orderDet);
   const userReview = useSelector((state) => state.userReview);
   const orderSingle = orderDetails.orders_pos;
   const review = userReview.map((u) => u.productId);
+
+  console.log(products)
 
   console.log("filter", review);
 
@@ -23,6 +26,10 @@ export default function OrderDetail() {
 
   useEffect(() => {
     dispatch(getorderbyid(id));
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getProducts());
   }, [dispatch]);
 
   return (
@@ -47,9 +54,12 @@ export default function OrderDetail() {
                     <td>
                       <div class="flex items-center space-x-3">
                         <td>
+                          {products.filter(p => p.id == o.idProduct)?
                           <NavLink to={`/details/${o.idProduct}`}>
                             <div class="font-bold">{o.description}</div>
                           </NavLink>
+                          :null
+                          }
                         </td>
                       </div>
                     </td>
