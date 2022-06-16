@@ -91,10 +91,13 @@ function Details() {
               <button className="btn btn-primary">Add To Cart</button>
             </div>
           </div>
-        </div>
         <div className='mt-8'>
           <img className="grid shadow-lg rounded-lg " src={imageName} alt={product.name} />
           <br /><br />
+        </div>
+        </div>
+
+        <div className="pt-1">
           <div className="rating rating-sm">
             {
               courseAverage === 1 ? <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} checked disabled />
@@ -118,14 +121,11 @@ function Details() {
               <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} disabled />}
           </div>
           <div className="text-sm mb-2 text-gray-400 cursor-pointer font-medium">User reviews:</div>
-        </div>
-
-        <div className="pt-1">
           <div className="mb-2 text-sm">
             {product.reviews ? product.reviews.map((r, i) => {
               return (
                 <div key={i}>
-                  <div className="max-w-md py-4 px-8 bg-slate-200 shadow-lg rounded-lg my-20">
+                  <div className="w-[400px] py-4 px-8 bg-slate-200 shadow-lg rounded-lg my-20">
                     <div className="flex justify-center md:justify-end -mt-16">
                       <img className="w-20 h-20 object-cover rounded-full border-2 border-amber-900" src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" alt='asd' />
                     </div>
