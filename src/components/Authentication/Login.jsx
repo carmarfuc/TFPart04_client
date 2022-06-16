@@ -20,15 +20,6 @@ export default function Login() {
 
   async function handleLogin(e) {
     e.preventDefault()
-    let actualInput = Object.keys(userLogin);
-    let isValid = true;
-    actualInput.forEach(key => {
-      if (userLogin[key].includes(' ')) {
-        isValid = false;
-        return;
-      };
-    });
-    if (!isValid) return alert('No blank spaces allowed!');
     if (Object.keys(errors).length) {
       return alert('Please fill the right way')
     }
