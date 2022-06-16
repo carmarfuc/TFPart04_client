@@ -7,24 +7,29 @@ function LeaveReview(productId) {
     const dispatch = useDispatch();
     const userEmail = localStorage.getItem("user")
     const navigate = useNavigate()
+    const [ranking, setRanking] = useState('5')
+    const [description, setDescription] = useState('')
 
-    let productData = {}
+    let productData = {
+        userEmail: userEmail,
+        productId: productId.productId
+    }
 
     let handleChange = (e) => {
-        productData = {
-            ...productData,
-            [e.target.name]: e.target.value
+        if (e.target.name == 'description') {
+            setDescription(e.target.value)
+        } else if (e.target.name == 'ranking') {
+            setRanking(e.target.value)
         }
     }
-    console.log('Prod data: ',productData)
+
     let handleSubmit = async (e) => {
         e.preventDefault();
         productData = {
             ...productData,
-            userEmail: userEmail,
-            productId: productId
+            ranking: ranking,
+            description: description,
         }
-        alert('PERO QUE RAYOS MANDO', productData)
         await dispatch(createReview(productData));
         navigate('/user')
     }
