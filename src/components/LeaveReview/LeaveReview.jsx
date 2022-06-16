@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { createReview } from '../../redux/actions';
 
 function LeaveReview() {
     const dispatch = useDispatch();
+    const userEmail = localStorage.getItem("user")
+    const navigate = useNavigate()
 
     //CONNECT WITH REAL DATA WHEN THE ROUTE IS MODIFIED FROM BACK. CHANGE USER ID FOR USER EMAIL.
     let userData = {
@@ -35,14 +38,16 @@ function LeaveReview() {
             [e.target.name]: e.target.value
         }
     }
-    let handleSubmit = (e) => {
+    let handleSubmit = async (e) => {
         e.preventDefault();
         productData = {
             ...productData,
+            userEmail: userEmail,
             productId: product.id,
             userId: userData.id
         }
-        dispatch(createReview(productData));
+        await dispatch(createReview(productData));
+        navigate('/user')
     }
 
     return (

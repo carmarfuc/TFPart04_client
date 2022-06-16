@@ -15,8 +15,6 @@ export default function OrderDetail() {
   const orderSingle = orderDetails.orders_pos;
   const review = userReview.map((u) => u.productId);
 
-  console.log("filter", review);
-
   useEffect(() => {
     dispatch(getuserReview(userEmail));
   }, [dispatch]);
