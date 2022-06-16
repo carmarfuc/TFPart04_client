@@ -13,6 +13,7 @@ export default function Users() {
 
   async function deletePost(emailUser) {
     await axios.delete(`https://localhost:3001/user/delete/${emailUser}`);
+    console.log("hola")
     alert('Delete successful');
     dispatch(getUser());
   }
