@@ -38,7 +38,7 @@ export default function OrderDetail() {
               <th>Products</th>
               <th>Price</th>
               <th>Date</th>
-              <th></th>
+              <th>Review</th>
               <th></th>
             </tr>
           </thead>
@@ -49,48 +49,41 @@ export default function OrderDetail() {
                   <tr>
                     <td>
                       <div class="flex items-center space-x-3">
-                        <td>
-                          {products.filter(p => p.id == o.idProduct)?
+                        {products.filter(p => p.id == o.idProduct) ?
                           <NavLink to={`/details/${o.idProduct}`}>
-                            <div class="font-bold">{o.description}</div>
+                            <div class="font-bold">{o.description.toUpperCase()}</div>
                           </NavLink>
-                          :null
-                          }
-                        </td>
+                          : null
+                        }
                       </div>
                     </td>
                     <td>{o.price} ARS</td>
                     <td>{o.createdAt.slice(0, 10)}</td>
-                    <td>
-                      {usertype === "Admin" && <td></td>}
-                      {usertype === "User" && (
-                        <td>
-                          {review.includes(o.idProduct) ? (
-                            <td></td>
-                          ) : (
-                            <div class="dropdown">
-                              <label tabindex="0" class="btn m-1">
-                                Leave Review
-                              </label>
-                              <div
-                                tabindex="0"
-                                class="dropdown-content card card-compact w-auto p-2 shadow bg-primary text-primary-content"
-                              >
-                                <div class="card-body">
-                                  <LeaveReview productId={o.idProduct}></LeaveReview>
-                                </div>
-                              </div>
+                    {usertype === "Admin" && <td></td>}
+                    {usertype === "User" && (
+                      <td className='w-[450x]'>
+                        {review.includes(o.idProduct) ? (
+                          <p>Reviewed</p>
+                        ) : (
+                          <div class="dropdown max-w-xs">
+                            <label tabindex="0" class="btn m-1">
+                              Leave Review
+                            </label>
+                            <div
+                              tabindex="0"
+                              class=" w-[450x] dropdown-content card p-2 shadow bg-primary"
+                            >
+                              <LeaveReview productId={o.idProduct}></LeaveReview>
                             </div>
-                          )}
-                        </td>
-                      )}
-                    </td>
+                          </div>
+                        )}
+                      </td>
+                    )}
                     <td></td>
                   </tr>
                 );
               })}
           </tbody>
-          {/* <!-- foot --> */}
         </table>
       </div>
     </div>
