@@ -49,7 +49,7 @@ export default function OrderDetail() {
                   <tr>
                     <td>
                       <div class="flex items-center space-x-3">
-                        {products.filter(p => p.id == o.idProduct) ?
+                        {products.filter(p => p.id === o.idProduct) ?
                           <NavLink to={`/details/${o.idProduct}`}>
                             <div class="font-bold">{o.description.toUpperCase()}</div>
                           </NavLink>
@@ -60,7 +60,7 @@ export default function OrderDetail() {
                     <td>{o.price} ARS</td>
                     <td>{o.createdAt.slice(0, 10)}</td>
                     {usertype === "Admin" && <td></td>}
-                    {usertype === "User" && (
+                    {usertype === "User" && orderDetails.status === "payed" ? (
                       <td className='w-[450x]'>
                         {review.includes(o.idProduct) ? (
                           <p>Reviewed</p>
@@ -78,7 +78,7 @@ export default function OrderDetail() {
                           </div>
                         )}
                       </td>
-                    )}
+                    ) : <td className='font-bold'>Order not payed yet or cancelled</td>}
                     <td></td>
                   </tr>
                 );

@@ -54,7 +54,7 @@ const UserPage = () => {
                       </div>
                     })}
                     <br />
-                    <span className="badge badge-ghost badge-sm">{o.status}</span>
+                    <span className="badge badge-neutral badge-md font-bold">Status: {o.status}</span>
                   </td>
                   <td>
                     <div className="flex items-center space-x-3">
