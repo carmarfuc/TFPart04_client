@@ -36,7 +36,7 @@ function LeaveReview(productId) {
     }
 
     return (
-        <div className="w-[400px] py-4 px-8 bg-slate-200 shadow-lg rounded-lg my-12">
+        <div className="w-[400px] py-4 px-8 bg-slate-200 shadow-lg rounded-lg mt-12">
             <div className="flex justify-center md:justify-end -mt-16">
                 <img className="w-20 h-20 object-cover rounded-full border-2 border-secondary" src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" alt='asd' />
             </div>
@@ -44,7 +44,7 @@ function LeaveReview(productId) {
                 <form onSubmit={handleSubmit} className='mt-1'>
                     <label className='font-semibold '>{`¡${userEmail.split('@')[0]}, let the others know what do `}</label><br />
                     <label className='font-semibold '>{`you think about this course and rate it!`}</label><br />
-                    <textarea placeholder="Type here" className="input input-bordered input-primary mt-2" cols='40' rows='60' resize='none' name='description' onChange={handleChange}></textarea><br></br>
+                    <textarea placeholder="Type here" className="input input-bordered input-primary mt-2 resize-none" cols='40' rows='60' resize='none' name='description' onChange={handleChange}></textarea><br></br>
                     <div className="rating">
                         <input type="radio" name="ranking" className="mask mask-star-2 bg-accent" onChange={handleChange} value="1" />
                         <input type="radio" name="ranking" className="mask mask-star-2 bg-accent" onChange={handleChange} value="2" />

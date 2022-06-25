@@ -36,35 +36,37 @@ function App() {
   const { pathname } = useLocation()
 
   return (
-    <div className="App">
-      {
-        pathname === '/' ? null : <NavBar />
-      }
+    <>
+      <div className="App">
+        {
+          pathname === '/' ? null : <NavBar />
+        }
+        <Routes>
+          <Route path='/' element={<Landing />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/details/:id' element={<Details />} />
+          <Route path='/cart' element={<ShoppingCart />} />
+          <Route path='/admin' element={<AdminPage />} />
+          <Route path='/user' element={<UserPage />} />
+          <Route path='/orders' element={<Orders />} />
+          <Route path='/userOrder/:email' element={<UserOrder />} />
+          <Route path='/OrderDetail/:id' element={<OrderDetail />} />
+          <Route path='/Categories' element={<Categories />} />
+          <Route path='/CreateCategory' element={<CreateCategory />} />
+          <Route path='/ModifyCategory/:idCategori' element={<ModifyCategory />} />
+          <Route path='/resources' element={<Resources />} />
+          <Route path='/creationform' element={<ProductCreationForm />} />
+          <Route path='/modificationForm/:id' element={<ModificationForm />} />
+          <Route path='/successOrder' element={<CheckoutCart />} />
+          <Route path='/password/supersecreturl/:mail' element={<Password />} />{/*AGCH*/}
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </div>
+      <div>
+        <Footer />
+      </div>
+    </>
 
-      <Routes>
-        <Route path='/' element={<Landing />} />
-        <Route path='/home' element={<Home />} />
-        <Route path='/details/:id' element={<Details />} />
-        <Route path='/cart' element={<ShoppingCart />} />
-        <Route path='/admin' element={<AdminPage />} />
-        <Route path='/user' element={<UserPage />} />
-        <Route path='/orders' element={<Orders />} />
-        <Route path='/userOrder/:email' element={<UserOrder />} />
-        <Route path='/OrderDetail/:id' element={<OrderDetail />} />
-        <Route path='/Categories' element={<Categories />} />
-        <Route path='/CreateCategory' element={<CreateCategory />} />
-        <Route path='/ModifyCategory/:idCategori' element={<ModifyCategory />} />
-        <Route path='/resources' element={<Resources />} />
-        <Route path='/creationform' element={<ProductCreationForm />} />
-        <Route path='/modificationForm/:id' element={<ModificationForm />} />
-        <Route path='/successOrder' element={<CheckoutCart />} />
-        <Route path='/password/supersecreturl/:mail' element={<Password />} />{/*AGCH*/}
-        <Route path='*' element={<NotFound />} />
-      </Routes>
-      {
-        pathname === '/' ? null : <Footer />
-      }
-    </div>
   );
 }
 
