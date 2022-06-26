@@ -19,7 +19,7 @@ export default function AdminPage(props) {
   const [Page, setPage] = useState('course');
   const [products, setProducts] = useState([]);
   const category = useSelector(state => state.categories);
-  let URL= 'https://codecamp-academy.herokuapp.com';
+  let URL= 'https://tf-henry-04-02.herokuapp.com';
 
   console.log("cat", category)
 

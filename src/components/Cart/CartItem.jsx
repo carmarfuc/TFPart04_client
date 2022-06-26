@@ -11,7 +11,7 @@ const CartItem = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const [cart, setCart] = useState([])
-  let URL= 'https://codecamp-academy.herokuapp.com';
+  let URL= 'https://tf-henry-04-02.herokuapp.com';
 
   const backendURL = `${URL}/mercadopago/new`
 

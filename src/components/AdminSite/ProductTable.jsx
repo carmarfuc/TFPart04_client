@@ -12,7 +12,7 @@ export default function ProductTable() {
   const allProduct = useSelector(state => state.products);
   const filteredProducts = useSelector(state => state.filteredProducts);
   const products = filteredProducts.length ? filteredProducts : allProduct;
-  let URL= 'https://codecamp-academy.herokuapp.com';
+  let URL= 'https://tf-henry-04-02.herokuapp.com';
 
   
   async function deletePost(id) {

@@ -26,7 +26,7 @@ export const FILTER_ORDER = "FILTER_ORDER";
 export const ORDER_STATUS = "ORDER_STATUS";
 export const FILTER_STATUS = "FILTER_STATUS";
 
-let URL= 'https://codecamp-academy.herokuapp.com';
+let URL= 'https://tf-henry-04-02.herokuapp.com';
 
 export const getProducts = () => {
   return function (dispatch) {

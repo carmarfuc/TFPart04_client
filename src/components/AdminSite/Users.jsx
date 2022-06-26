@@ -8,7 +8,7 @@ export default function Users() {
   const dispatch = useDispatch()
 
   const users = useSelector(state => state.users)
-  let URL= 'https://codecamp-academy.herokuapp.com';
+  let URL= 'https://tf-henry-04-02.herokuapp.com';
 
   async function deletePost(emailUser) {
     await axios.delete(`${URL}/user/delete/${emailUser}`);
