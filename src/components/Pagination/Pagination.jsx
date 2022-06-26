@@ -8,35 +8,35 @@ function Pagination({ productsPerPage, totalProducts, paginate }) {
     };
     return (
         <div className="w-full justify-items-center">
-<nav className="">
-            <ul className={style.pageList}>
-                {pageNumbers.map(number => {
-                    return (
+            <nav className="">
+                <ul className={style.pageList}>
+                    {pageNumbers.map(number => {
+                        return (
 
-                        // <div class="btn-group">
-                        //     <button class="btn">1</button>
-                        //     <button class="btn btn-active">2</button>
-                        //     <button class="btn">3</button>
-                        //     <button class="btn">4</button>
-                        // </div>
+                            // <div class="btn-group">
+                            //     <button class="btn">1</button>
+                            //     <button class="btn btn-active">2</button>
+                            //     <button class="btn">3</button>
+                            //     <button class="btn">4</button>
+                            // </div>
 
-                        <div
-                            key={number}
-                            className=" btn-group"
-                        >
-                            <button
-                                onClick={() => paginate(number)}
-                                href='#top'
-                                className="btn"
-                            >{number}
-                            </button>
-                        </div>
-                    )
-                })}
-            </ul>
-        </nav>
+                            <div
+                                key={number}
+                                className=" btn-group p-1"
+                            >
+                                <button
+                                    onClick={() => paginate(number)}
+                                    href='#top'
+                                    className="btn btn-primary"
+                                >{number}
+                                </button>
+                            </div>
+                        )
+                    })}
+                </ul>
+            </nav>
         </div>
-        
+
     )
 }
 
