@@ -93,15 +93,20 @@ const CartItem = () => {
                 {
                   dataCart && dataCart.map((product) => {
                     return (
-                      <div key={product.idProduct} className="grid grid-cols-2 px-2 py-2">
-                        <div>
+                      <div key={product.idProduct} className="px-2 py-2">
+                        <table>
+                          <td className="w-[300px]">
                           <h1 className="text-gray-900 grid justify-items-start font-bold text-base uppercase">{product.description}</h1>
-                        </div>
-                        <div>
-                          <p className="text-gray-600 text-sm mt-1">${product.price} USD</p>
-                          <button onClick={() => removeOneFromCart(product.idProduct)} className="text-blue-400">Clear Item</button>
-                          <br /><br />
-                        </div>
+                          </td>
+                          <td className="w-[300px]">
+                          <p className="text-gray-600 text-sm">${product.price} USD</p>
+                          </td>
+                          <td>
+                          <button onClick={() => removeOneFromCart(product.idProduct)} className="text-red-600">
+                            <TrashIcon className="h-6 w-6" aria-hidden="true" />
+                          </button>
+                          </td>
+                        </table>
                       </div>
                     )
                   })}
