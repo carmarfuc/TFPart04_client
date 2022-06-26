@@ -41,6 +41,7 @@ export default function AdminPage(props) {
   function HandlePage(e) {
     if (e === 'course') setPage('course')
     else if (e === 'Category') setPage('Category')
+    
     else if (e === 'CreateCategorie') setPage('CreateCategorie')
     else if (e === 'CreateCourse') setPage('CreateCourse')
     else if (e === 'order') setPage('order')

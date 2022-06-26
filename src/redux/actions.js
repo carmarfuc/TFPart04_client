@@ -73,8 +73,6 @@ export function createCategory(category) {
   console.log(category)
   return function () {
     return axios.post(`${URL}/category`, category)
-      // return axios.post("/category", category)
-      .then(alert('Category created successfully!'))
       .catch(error => console.log('Action error in createCategory: ', error))
   };
 };
@@ -331,7 +329,7 @@ export function filterStatus(e) {
 export function updateCategorie(id, category) {
   return function (dispatch) {
     return axios.put(`${URL}/category/update/${id}`, category)
-      .then(resp => dispatch(console.log('Change categorie success', resp.data)))
+      .then(resp => dispatch( resp.data))
       .catch(error => console.log('Action error in change categorie: ', error))
   }
 };
