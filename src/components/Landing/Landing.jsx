@@ -54,11 +54,6 @@ function Landing() {
               Enter as a guest
             </div>
           </NavLink>
-          <br />
-          {!localStorage.getItem("user") ?
-            <FirebaseSignIn />
-            : null
-          }
           <div className='mt-8'>
             {sign === '' &&
               <div className='flex justify-center gap-10'>
@@ -86,6 +81,11 @@ function Landing() {
               </div>
             }
           </div>
+          <br></br>
+          {!localStorage.getItem("user") ?
+            <FirebaseSignIn />
+            : null
+          }
         </div>
         <br />
         <br />
