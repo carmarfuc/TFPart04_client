@@ -57,7 +57,7 @@ function ProductIndividualCard({
                             <figure><img className='w-[384] h-[253px]' src={imageName} alt={name} /></figure>
                         </NavLink>
                         <div className="card-body">
-                            <h2 className="card-title">{name}</h2>
+                            <h2 className="card-title uppercase">{name}</h2>
                             <div className="grid grid-cols-2 justify-items-start">
                                 <div>Categories: </div>
                                 <div><p>{categories}</p></div>
@@ -78,7 +78,7 @@ function ProductIndividualCard({
                         <figure><img className='w-[384] h-[253px]' src={imageName} alt={name} /></figure>
                     </NavLink>
                     <div className="card-body">
-                        <h2 className="card-title">{name}</h2>
+                        <h2 className="card-title uppercase">{name}</h2>
                         <div className="grid grid-cols-2 justify-items-start">
                             <div>Categories: </div>
                             <div><p>{categories}</p></div>
