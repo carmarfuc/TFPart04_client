@@ -84,7 +84,7 @@ function Details() {
 
             <div className="text-md mb-2 text-orange-700 font-bold">Categories:</div>
             <div className="pt-1">
-              <div className="mb-2 text-sm">{product.categories}
+              <div className="mb-2 text-sm">{product.categories + " "}
               </div>
             </div>
           </div>
