@@ -12,10 +12,9 @@ export default function ProductTable() {
   const allProduct = useSelector(state => state.products);
   const filteredProducts = useSelector(state => state.filteredProducts);
   const products = filteredProducts.length ? filteredProducts : allProduct;
+  let URL= 'https://codecamp-academy.herokuapp.com';
 
-  let URL;
-  process.env.NODE_ENV === "development" ? URL = "<http://localhost:3001>" : URL = "https://54.227.99.93:3001";
-
+  
   async function deletePost(id) {
     await axios.delete(`${URL}/product/delete/${id}`);
     alert('Delete successful');

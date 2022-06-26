@@ -11,10 +11,7 @@ const CartItem = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const [cart, setCart] = useState([])
-  let URL;
-  // let URL = 'https://54.227.99.93:3001'
-  // Mercado Pago-------
-  process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
+  let URL= 'https://codecamp-academy.herokuapp.com';
 
   const backendURL = `${URL}/mercadopago/new`
 

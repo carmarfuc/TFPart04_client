@@ -19,8 +19,7 @@ export default function AdminPage(props) {
   const [Page, setPage] = useState('course');
   const [products, setProducts] = useState([]);
   const category = useSelector(state => state.categories);
-  let URL;
-  process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
+  let URL= 'https://codecamp-academy.herokuapp.com';
 
   console.log("cat", category)
 

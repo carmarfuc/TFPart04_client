@@ -10,9 +10,7 @@ import axios from "axios";
 export default function Categories() {
   const dispatch = useDispatch();
   const categories = useSelector(state => state.categories)
-
-
-  process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
+  let URL= 'https://codecamp-academy.herokuapp.com';
 
   async function deletePost(id) {
     await axios.delete(`${URL}/category/delete/${id}`);
