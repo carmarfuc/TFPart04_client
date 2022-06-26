@@ -46,7 +46,7 @@ export default function ProductTable() {
               const imageName = product.image.includes('product') ?
                 '../../img_products/' + product.image + '.jpg' :
                 `https://res.cloudinary.com/da42wdmjv/image/upload/v1654727380/${product.image}`
-
+              console.log("pruecutos",product)
               return (
                 <tr>
                   <td>
@@ -63,7 +63,7 @@ export default function ProductTable() {
                       </div>
                     </div>
                   </td>
-                  <td>{product.categories}</td>
+                  <td>{product.categories +" "}</td>
                   <td>${product.price}</td>
                   <th>
                     <NavLink to={`/modificationForm/${product.id}`}>
