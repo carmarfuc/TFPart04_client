@@ -38,7 +38,7 @@ function ProductCards({ allProducts }) {
                                     name={p.name}
                                     price={p.price}
                                     image={p.image}
-                                    categories={p.categories}
+                                    categories={p.categories + " "}
                                     ranking={p.ranking}
                                     stock={p.stock}
                                 />

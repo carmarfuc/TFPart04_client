@@ -19,8 +19,7 @@ export default function AdminPage(props) {
   const [Page, setPage] = useState('course');
   const [products, setProducts] = useState([]);
   const category = useSelector(state => state.categories);
-  let URL;
-  process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
+  let URL= 'https://tf-henry-04-02.herokuapp.com';
 
   console.log("cat", category)
 
@@ -42,6 +41,7 @@ export default function AdminPage(props) {
   function HandlePage(e) {
     if (e === 'course') setPage('course')
     else if (e === 'Category') setPage('Category')
+    
     else if (e === 'CreateCategorie') setPage('CreateCategorie')
     else if (e === 'CreateCourse') setPage('CreateCourse')
     else if (e === 'order') setPage('order')

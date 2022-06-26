@@ -8,8 +8,7 @@ export default function Users() {
   const dispatch = useDispatch()
 
   const users = useSelector(state => state.users)
-  let URL;
-  process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
+  let URL= 'https://tf-henry-04-02.herokuapp.com';
 
   async function deletePost(emailUser) {
     await axios.delete(`${URL}/user/delete/${emailUser}`);

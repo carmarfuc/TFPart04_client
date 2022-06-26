@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { createOrder, cartItems } from '../../redux/actions'
 import axios from 'axios'
+import { TrashIcon } from '@heroicons/react/outline'
 
 
 
@@ -11,10 +12,7 @@ const CartItem = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const [cart, setCart] = useState([])
-  let URL;
-  // let URL = 'https://54.227.99.93:3001'
-  // Mercado Pago-------
-  process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
+  let URL= 'https://tf-henry-04-02.herokuapp.com';
 
   const backendURL = `${URL}/mercadopago/new`
 
@@ -92,15 +90,20 @@ const CartItem = () => {
                 {
                   dataCart && dataCart.map((product) => {
                     return (
-                      <div key={product.idProduct} className="grid grid-cols-2 px-2 py-2">
-                        <div>
+                      <div key={product.idProduct} className="px-2 py-2">
+                        <table>
+                          <td className="w-[300px]">
                           <h1 className="text-gray-900 grid justify-items-start font-bold text-base uppercase">{product.description}</h1>
-                        </div>
-                        <div>
-                          <p className="text-gray-600 text-sm mt-1">${product.price} USD</p>
-                          <button onClick={() => removeOneFromCart(product.idProduct)} className="text-blue-400">Clear Item</button>
-                          <br /><br />
-                        </div>
+                          </td>
+                          <td className="w-[300px]">
+                          <p className="text-gray-600 text-sm">${product.price} USD</p>
+                          </td>
+                          <td>
+                          <button onClick={() => removeOneFromCart(product.idProduct)} className="text-red-600">
+                            <TrashIcon className="h-6 w-6" aria-hidden="true" />
+                          </button>
+                          </td>
+                        </table>
                       </div>
                     )
                   })}
@@ -152,21 +155,26 @@ const CartItem = () => {
             <div className="px-2 py-2">
               <div className="text-gray-900 font-bold text-1xl uppercase divide-y">
                 <div>
-                  <p className="font-bold text-lg grid justify-items-start px-2 py-2">Carrito ({dataCart && dataCart.length}) </p>
+                  <p className="font-bold text-lg grid justify-items-start px-2 py-2">Shopping Cart ({dataCart && dataCart.length}) </p>
                   <br />
                 </div>
                 {
                   dataCart && dataCart.map(product => {
                     return (
-                      <div key={product.idProduct} className="grid grid-cols-2 px-2 py-2">
-                        <div>
+                      <div key={product.idProduct} className="px-2 py-2">
+                        <table>
+                          <td className="w-[300px]">
                           <h1 className="text-gray-900 grid justify-items-start font-bold text-base uppercase">{product.description}</h1>
-                        </div>
-                        <div>
-                          <p className="text-gray-600 text-sm mt-1">${product.price} USD</p>
-                          <button onClick={() => removeOneFromCart(product.idProduct)} className="text-blue-400">Clear Item</button>
-                          <br /><br />
-                        </div>
+                          </td>
+                          <td className="w-[300px]">
+                          <p className="text-gray-600 text-sm">${product.price} USD</p>
+                          </td>
+                          <td>
+                          <button onClick={() => removeOneFromCart(product.idProduct)} className="text-red-600">
+                            <TrashIcon className="h-6 w-6" aria-hidden="true" />
+                          </button>
+                          </td>
+                        </table>
                       </div>
                     )
                   })}

@@ -25,9 +25,10 @@ export const GET_USER_ORDERS = "GET_USER_ORDERS";
 export const FILTER_ORDER = "FILTER_ORDER";
 export const ORDER_STATUS = "ORDER_STATUS";
 export const FILTER_STATUS = "FILTER_STATUS";
-// let URL = 'https://54.227.99.93:3001'
+
 let URL;
 process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://tf-henry-04-02.herokuapp.com";
+
 
 export const getProducts = () => {
   return function (dispatch) {
@@ -74,8 +75,6 @@ export function createCategory(category) {
   console.log(category)
   return function () {
     return axios.post(`${URL}/category`, category)
-      // return axios.post("/category", category)
-      .then(alert('Category created successfully!'))
       .catch(error => console.log('Action error in createCategory: ', error))
   };
 };
@@ -332,7 +331,7 @@ export function filterStatus(e) {
 export function updateCategorie(id, category) {
   return function (dispatch) {
     return axios.put(`${URL}/category/update/${id}`, category)
-      .then(resp => dispatch(console.log('Change categorie success', resp.data)))
+      .then(resp => dispatch( resp.data))
       .catch(error => console.log('Action error in change categorie: ', error))
   }
 };
