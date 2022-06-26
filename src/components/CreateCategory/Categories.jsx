@@ -1,7 +1,7 @@
-import React, { useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../redux/actions";
-import { NavLink,useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 
@@ -11,7 +11,7 @@ export default function Categories() {
   const dispatch = useDispatch();
   const categories = useSelector(state => state.categories)
 
-  
+
   process.env.NODE_ENV === "development" ? URL = "http://localhost:3001" : URL = "https://54.227.99.93:3001";
 
   async function deletePost(id) {
@@ -19,7 +19,7 @@ export default function Categories() {
     alert('Delete successful');
     dispatch(getCategories());
   }
-  
+
 
   useEffect(() => {
     dispatch(getCategories());
@@ -53,7 +53,7 @@ export default function Categories() {
                       </div>
                     </div>
                   </td>
-                  <td>{categorie.name}</td>
+                  <td className='text-sm font-bold'>{categorie.name.toUpperCase()}</td>
                   <td>{categorie.description}</td>
                   <th>
                     <NavLink to={`/ModifyCategory/${categorie.id}`}>

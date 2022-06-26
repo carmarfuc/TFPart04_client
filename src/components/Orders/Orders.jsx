@@ -1,29 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getorder } from "../../redux/actions";
-import axios from "axios";
-
-
 
 export default function Orders() {
   const dispatch = useDispatch();
   const allorders = useSelector((state) => state.orders);
-  const email = allorders.map(o=>o.userEmail)
-  let arreglounico=[];
-
-  console.log(arreglounico)
+  const email = allorders.map(o => o.userEmail)
+  let arreglounico = [];
 
   for (let i = 0; i < email.length; i++) {
-    if(arreglounico.includes(email[i])){
+    if (arreglounico.includes(email[i])) {
       console.log("se repite " + email[i])
     }
-    else{
+    else {
       arreglounico.push(email[i])
     }
   }
-
-
 
   return (
     <div class="overflow-x-auto w-full">
@@ -43,34 +35,34 @@ export default function Orders() {
           {arreglounico &&
             arreglounico.map((order) => {
               return (
-                  <tr>
-                    <td>
-                      <div class="flex items-center space-x-3">
-                        <div class="avatar"></div>
-                        <div>
+                <tr>
+                  <td>
+                    <div class="flex items-center space-x-3">
+                      <div class="avatar"></div>
+                      <div>
                         <NavLink to={`/userOrder/${order}`}>
                           <div class="font_bold">
                             {order}
-                            </div>
+                          </div>
                         </NavLink>
-                        </div>
                       </div>
-                    </td>
-                    <td>
+                    </div>
+                  </td>
+                  <td>
                     <NavLink to={`/userOrder/${order}`}>
                       <div class="font_bold"> view Orders</div>
-                      </NavLink>
-                    </td>
-                    <td>
+                    </NavLink>
+                  </td>
+                  <td>
 
-                    </td>
-                    <td>
+                  </td>
+                  <td>
 
-                    </td>
-                    <th>
+                  </td>
+                  <th>
 
-                    </th>
-                  </tr>
+                  </th>
+                </tr>
               );
             })}
         </tbody>
