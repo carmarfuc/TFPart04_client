@@ -1,21 +1,32 @@
 import React, { useState } from 'react';
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { createCategory } from '../../redux/actions';
-import { validate } from '../../utils/validate';
+import { updateCategorie } from '../../redux/actions';
 import styles from './CreateCategory.module.css'
 
 
-function CreateCategory() {
+export default function ModifyCategory() {
   const navigate = useNavigate();
+  const { idCategori } = useParams();
   const dispatch = useDispatch();
-  const [loading,setLoading] = useState(false)
   const [category, setCategory] = useState({})
   const [errors, setErrors] = useState({});
+  const [loading,setLoading] = useState(false)
+
+  const validate = (input) => { //create category validation
+    let errors = {}
+
+    if (!input.name) errors.name = 'Must have a name'
+    let pattern = /^[a-zA-Z0-9 ]*$/
+    if (!pattern.test(input.name)) errors.name = 'Cannot contain special characters'
+
+    if (!input.description) errors.description = 'Must have a description'
+
+    return errors
+  }
 
   function handleChange(e) {
     let item = e.target.name
-
     setErrors(validate({ ...category, [item]: e.target.value }))
     setCategory({ ...category, [item]: e.target.value })
   }
@@ -25,19 +36,20 @@ function CreateCategory() {
 
     setTimeout(() => {
     setLoading(false)
-    }, 2000);
+    navigate('/admin');
+    }, 3000);
 
     e.preventDefault()
     if (Object.keys(errors).length || !Object.keys(category).length) {
       return alert('The form is not right, please check')
     }
-    dispatch(createCategory(category))
-    document.getElementById('createCategory').reset()
-  }
 
+    dispatch(updateCategorie(idCategori, category))
+    document.getElementById('Update').reset()
+  }
   return (
   <>
-  {loading ? (
+    {loading ? (
      <div className='w-[500px]'>
      <div className="alert alert-success shadow-lg w-full">
        <div>
@@ -55,27 +67,24 @@ function CreateCategory() {
            />
          </svg>
          <span>
-           Creating category success!!
+          Update categorie success!!
          </span>
        </div>
      </div>
    </div>
   ):(
     <div className={styles.container}>
-    <form className={styles.lilcontainer} id='createCategory' onSubmit={e => handleSubmit(e)}>
-      <label className=''>Category id: </label>
+    <form className={styles.lilcontainer} id={idCategori} onSubmit={e => handleSubmit(e)}>
+      <label className='font-semibold text-orange-700'>id: {idCategori}</label>
+      <label className='font-semibold text-orange-700'>Category name: </label>
       <div className="tooltip tooltip-right tooltip-warning max-w-xs p-1" data-tip="required">
-        <input className='input input-bordered input-accent w-full max-w-xs' type="text" name='id' id='categoryId' onChange={e => handleChange(e)} />
+      <input className='input input-bordered input-accent w-full max-w-xs' type="text" name='name' id='categoryName' onChange={e => handleChange(e)}/>
       </div>
-      <label className=''>Category name: </label>
+      <label className='font-semibold text-orange-700'>Description: </label>
       <div className="tooltip tooltip-right tooltip-warning max-w-xs p-1" data-tip="required">
-        <input className='input input-bordered input-accent w-full max-w-xs' type="text" name='name' id='categoryName' onChange={e => handleChange(e)} />
+      <input className='input input-bordered input-accent w-full max-w-xs' type="text" name='description' id='categoryDesciption' onChange={e => handleChange(e)}/>
       </div>
-      <label className=''>Description: </label>
-      <div className="tooltip tooltip-right tooltip-warning max-w-xs p-1" data-tip="required">
-        <input className='input input-bordered input-accent w-full max-w-xs' type="text" name='description' id='categoryDesciption' onChange={e => handleChange(e)} />
-      </div>
-      <input className="btn btn-primary mb-5 mt-5" type="submit" value='Create Category' />
+      <input className="btn btn-primary mb-5 mt-5" type="submit" value='Update'/>
     </form>
     <br />
     {errors.id && <h1>{errors.id}</h1>}
@@ -84,7 +93,6 @@ function CreateCategory() {
   </div>
   )}
   </>
-  )
+  );
 };
 
-export default CreateCategory;

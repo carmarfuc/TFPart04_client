@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getCategories, getProducts, logout } from '../../redux/actions';
+import { getCategories, getProducts, logout, cartItems } from '../../redux/actions';
 
 import bgimage from "./bg_landing.jpg";
 import Login from '../Authentication/Login';
 import Signup from '../Authentication/Signup';
+import FirebaseSignIn from '../Firebase/FirebaseSignIn';
 import logo from "./Logo.png";
+import { useNavigate } from 'react-router-dom';
 
 function Landing() {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate()
   const [sign, setSign] = useState('')
 
   useEffect(() => {
     dispatch(getCategories())
     dispatch(getProducts())
+    if (localStorage.user) {
+      navigate('/home')
+    }
   }, [dispatch])
 
   const backgroundImageStyle = {
@@ -76,6 +81,11 @@ function Landing() {
               </div>
             }
           </div>
+          <br></br>
+          {!localStorage.getItem("user") ?
+            <FirebaseSignIn />
+            : null
+          }
         </div>
         <br />
         <br />

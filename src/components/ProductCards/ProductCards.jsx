@@ -27,32 +27,33 @@ function ProductCards({ allProducts }) {
 
     return (
         <div className="grid justify-items-center">
-        <div className="grid justify-items-center bg-white w-2/3 rounded shadow-sm border p-2">
-        <div className="grid grid-cols-3 gap-4 w-2/3">
-            {currentProducts ? currentProducts.map((p, i) => {
-                return (
-                    <React.Fragment key={i}>
-                        {/* <h3>Id de producto actual: {p.id_product}</h3> */}
-                        <ProductIndividualCard
-                            id={p.id}
-                            name={p.name}
-                            price={p.price}
-                            image={p.image}
-                            categories={p.categories}
-                            ranking={p.ranking}
-                        />
-                    </React.Fragment >
-                )
-            })
-                : ''}
-            <br></br>
-            <Pagination
-                productsPerPage={productsPerPage}
-                totalProducts={products.length}
-                paginate={paginate}
-            />
-        </div>
-        </div>
+            <div className="grid justify-items-center bg-white w-2/3 rounded shadow-sm border p-2 m-6">
+                <div className="grid grid-cols-3 gap-4 w-full justify-items-center">
+                    {currentProducts ? currentProducts.map((p, i) => {
+                        return (
+                            <React.Fragment key={i}>
+                                {/* <h3>Id de producto actual: {p.id_product}</h3> */}
+                                <ProductIndividualCard
+                                    id={p.id}
+                                    name={p.name}
+                                    price={p.price}
+                                    image={p.image}
+                                    categories={p.categories + " "}
+                                    ranking={p.ranking}
+                                    stock={p.stock}
+                                />
+                            </React.Fragment >
+                        )
+                    })
+                        : ''}
+                    <br></br>
+                </div>
+                    <Pagination
+                        productsPerPage={productsPerPage}
+                        totalProducts={products.length}
+                        paginate={paginate}
+                    />
+            </div>
         </div>
     );
 };

@@ -1,26 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import axios from "axios";
+import React, { useEffect } from 'react';
 import ProductCards from '../ProductCards/ProductCards';
 import Filters from '../Filters/Filters';
 import Search from '../Search/Search';
-import styles from './Home.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartItems, getorder, getProducts, getCategories } from '../../redux/actions';
 
 function Home() {
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  let dataCart = JSON.parse(localStorage.getItem("cartProduct"));
+  const products = useSelector(state => state.products);
+  const ctgry = useSelector(state => state.categories);
 
   useEffect(() => {
-    const loadProducts = async () => {
-      const response = await axios.get(`http://localhost:3001/product/all`);
-      setProducts(response.data);
+    dispatch(getCategories());
+    dispatch(getProducts());
+    dispatch(getorder());
+    if (dataCart?.length) {
+      console.log(dataCart)
+      dispatch(cartItems(dataCart.length))
     }
-    loadProducts();
   }, [products.length]);
 
   return (
     <>
       <div>
         <Search allProducts={products} />
-        <Filters />
+        <Filters categories={ctgry} />
         <ProductCards allProducts={products} />
       </div>
     </>

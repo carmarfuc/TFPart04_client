@@ -9,17 +9,24 @@ function Details() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false)
+  const product = useSelector(state => state.productDet)
+  let imageName;
 
   useEffect(() => {
     async function newId(id) {
       setLoading(true)
-      await dispatch(getProductById(id))  //This sets in the store the product i want to see the details
+      await dispatch(getProductById(id))
+
+      //This sets in the store the product i want to see the details
       setLoading(false)
     }
+    console.log(product)
     if (id) newId(id)
-  }, [])
+  }, [product?.image])
 
-  const product = useSelector(state => state.productDet)
+  imageName = product?.image?.includes('product') ?
+    '../../img_products/' + product?.image + '.jpg' :
+    `https://res.cloudinary.com/da42wdmjv/image/upload/v1654727380/${product?.image}`
 
   if (!id) {
     return <p>How did you get here? Please send review! Anyways, come again with a recipe to get details!</p>
@@ -28,8 +35,6 @@ function Details() {
   if (loading) {
     return <h2>Loading...</h2>;
   }
-  const imageName = '../../img_products/' + product.img + '.jpg';
-  console.log(product)
 
   let starsAverage = product.reviews ? product.reviews.map(r => {
     return r.ranking
@@ -43,92 +48,81 @@ function Details() {
 
   return (
     <div className="grid justify-items-center">
-    <div className="grid justify-items-center rounded overflow-hidden border w-full lg:w-6/12 md:w-6/12 bg-white mx-3 md:mx-0 lg:mx-0">
-      <div className="w-full flex justify-between p-3">
-        <div className="flex">
-        </div>
-        <span className="px-2 hover:bg-gray-300 cursor-pointer rounded"><i className="fas fa-ellipsis-h pt-2 text-lg"></i></span>
-      </div>
-      <div className="px-3 pb-2">
-        <div className="pt-2">
-          <i className="far fa-heart cursor-pointer"></i>
-          <h1 className="text-xl text-orange-700 font-bold">{product.name}</h1>
-          <hr/>
-        </div>
-        <br></br>
-      <div className="grid justify-items-start bg-gray-100 p-4 border shadow-md">
-        <div className="text-md mb-2 text-orange-700 font-bold">Description:</div>
-        <div className="pt-1">
-          <div className="mb-2 text-sm">
-            {product.description}
+      <div className="grid grid-cols-2 justify-items-center rounded w-2/3 m-4 p-4  border bg-white">
+        <div className="w-2/3">
+          <div className="grid pt-2 justify-items-center">
+            <h1 className="text-xl text-orange-700 font-bold">{product.name}</h1>
           </div>
-        </div>
+          <div className="grid justify-items-start w-full bg-gray-100 p-4 border shadow-md">
+            <div className="text-md mb-2 text-orange-700 font-bold">Description:</div>
+            <div className="pt-1">
+              <div className="mb-2 text-sm">
+                {product.description}
+              </div>
+            </div>
 
-        <div className="text-md mb-2 text-orange-700 font-bold">Price:</div>
-        <div className="pt-1">
-          <div className="mb-2 text-sm">
-            ${product.price} USD
-          </div>
-        </div>
+            <div className="text-md mb-2 text-orange-700 font-bold">Price:</div>
+            <div className="pt-1">
+              <div className="mb-2 text-sm">
+                ${product.price} USD
+              </div>
+            </div>
 
-        <div className="text-md mb-2 text-orange-700 font-bold">Ranking:</div>
-        <div className="pt-1">
-          <div className="mb-2 text-sm">
-            {product.ranking}
-          </div>
-        </div>
+            <div className="text-md mb-2 text-orange-700 font-bold">Ranking:</div>
+            <div className="pt-1">
+              <div className="mb-2 text-sm">
+                {product.ranking}
+              </div>
+            </div>
 
-        <div className="text-md mb-2 text-orange-700 font-bold">Stock:</div>
-        <div className="pt-1">
-          <div className="mb-2 text-sm">
-            {product.stock} places
-          </div>
-        </div>
+            <div className="text-md mb-2 text-orange-700 font-bold">Stock:</div>
+            <div className="pt-1">
+              <div className="mb-2 text-sm">
+                {product.stock} places
+              </div>
+            </div>
 
-        <div className="text-md mb-2 text-orange-700 font-bold">Categories:</div>
-        <div className="pt-1">
-          <div className="mb-2 text-sm">{product.categories}
+            <div className="text-md mb-2 text-orange-700 font-bold">Categories:</div>
+            <div className="pt-1">
+              <div className="mb-2 text-sm">{product.categories + " "}
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="w-full grid justify-items-center">
-        <button className="btn btn-primary">Add To Cart</button>
+        <div className='mt-8'>
+          <img className="grid shadow-lg rounded-lg " src={imageName} alt={product.name} />
+          <br /><br />
         </div>
         </div>
 
-        <br></br>
-        <br></br>
-        <div className="rating rating-sm">
-          {
-            courseAverage === 1 ? <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} checked disabled />
+        <div className="pt-1">
+          <div className="rating rating-sm">
+            {
+              courseAverage === 1 ? <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} checked disabled />
+                :
+                <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} disabled />}
+
+            {courseAverage === 2 ? <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} checked disabled />
               :
               <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} disabled />}
 
-          {courseAverage === 2 ? <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} checked disabled />
-            :
-            <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} disabled />}
+            {courseAverage === 3 ? <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} checked disabled />
+              :
+              <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} disabled />}
 
-          {courseAverage === 3 ? <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} checked disabled />
-            :
-            <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} disabled />}
+            {courseAverage === 4 ? <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} checked disabled />
+              :
+              <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} disabled />}
 
-          {courseAverage === 4 ? <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} checked disabled />
-            :
-            <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} disabled />}
-
-          {courseAverage === 5 ? <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} checked disabled />
-            :
-            <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} disabled />}
-        </div>
-
-        <br></br>
-
-        <div className="text-sm mb-2 text-gray-400 cursor-pointer font-medium">User reviews:</div>
-        <div className="pt-1">
+            {courseAverage === 5 ? <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} checked disabled />
+              :
+              <input type="radio" name={`rating-6-Product`} className="mask mask-star-2 bg-orange-400" style={{ cursor: 'default' }} disabled />}
+          </div>
+          <div className="text-sm mb-2 text-gray-400 cursor-pointer font-medium">User reviews:</div>
           <div className="mb-2 text-sm">
             {product.reviews ? product.reviews.map((r, i) => {
               return (
                 <div key={i}>
-                  <div className="max-w-md py-4 px-8 bg-slate-200 shadow-lg rounded-lg my-20">
+                  <div className="w-[400px] py-4 px-8 bg-slate-200 shadow-lg rounded-lg my-20">
                     <div className="flex justify-center md:justify-end -mt-16">
                       <img className="w-20 h-20 object-cover rounded-full border-2 border-amber-900" src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" alt='asd' />
                     </div>
@@ -167,7 +161,6 @@ function Details() {
           </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };

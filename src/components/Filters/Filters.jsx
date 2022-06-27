@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { filterByCategory, filterByPrice, pagination } from '../../redux/actions';
 
 
-function Filters() {
+function Filters({ categories }) {
     const dispatch = useDispatch();
 
     const handleSelectCategory = (e) => {
@@ -16,8 +16,6 @@ function Filters() {
         dispatch(filterByPrice(e.target.value));
     };
 
-    const categories = useSelector(state => state.categories);
-
     return (
         <nav>
             <select
@@ -26,7 +24,7 @@ function Filters() {
                 defaultValue={true}
                 onChange={handleSelectCategory}
             >
-                <option disabled value='true' selected>Filtrar por categoria </option>
+                <option disabled value='true' selected>Categories</option>
                 <option value='all'>All</option>
                 {categories ? categories.map((ctgry, i) => {
                     return (
@@ -41,7 +39,7 @@ function Filters() {
                 defaultValue={true}
                 onChange={handleSelectPrice}
             >
-                <option value='true' disabled='disabled'>Filtrar por precio </option>
+                <option value='true' disabled='disabled'>Price </option>
                 <option value='all' >All</option>
                 <option value='highest'>Highest price</option>
                 <option value='lowest'>Lowest price</option>
