@@ -1,47 +1,26 @@
 import React, { useState } from "react";
 import GoogleMaps from "simple-react-google-maps";
-import axios from "axios";
 
-async function location(){
-  return await axios.get(`http://localhost:3001/location`)
-    .then(resp => sucursal = resp.data )
-    .then(() => {
-      suc = sucursal && sucursal.map(s=>{return {lat:s.lat,lng:s.lng}})
-    } )
-    .catch(error => console.log('Error: ', error))
-}
+export default function Maps() {
+  const [sucursal, setSucursal] = useState({ lat: 3.4192575, lng: -76.5297973 });
 
-let sucursal,suc,p1=location()
-
-export default function Maps(){
-  //const [sucursals, setSucursals] = useState(0);
   return (
-    <div className="container">      
+    <div className="container">
       <GoogleMaps
-        apiKey={"AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik"}
+        apiKey={"AIzaSyBtgetcmccyLOslWVMp31kyT-0p_lagi3E"}
         style={{ height: "400px", width: "100%" }}
         zoom={12}
-        
-        center={{lat: 3.4168994,lng: -76.5260932}}
-        markers={suc}
+        center={sucursal}
+        markers={sucursal}
       />
-      <br/>
-      <div>
-        <h3>Nuestras Sedes:</h3>
-        <p>Estadium: Cl. 10 #37 - Cali, Valle del Cauca - Colombia</p>
-        <p>El Dorado: Cl. 19 ##37-25 Local 18 - Cali, Valle del Cauca - Colombia</p>
-        <p>Paso Ancho: Cl. 13c #41-31 - Cali, Valle del Cauca - Colombia</p>
+      <br />
+      <div className="flex flex-col">
+        <h3>Codecamp Centers:</h3>
+        <button onClick={() => setSucursal({ lat: 3.420916, lng: -76.529309 })} className='btn btn-primary'>Estadium: Cl. 10 #37 - Cali, Valle del Cauca - Colombia</button>
+        <button onClick={() => setSucursal({ lat: -34.618674, lng: -58.361830 })} className='btn btn-secondary'>Juana Manso 1750 - Puerto Madero, Buenos Aires - Argentina</button>
       </div>
+      <br />
+      <br />
     </div>
   );
 }
-
-/*
-<select key="22" name="listaOrden" id="listaOrden" onChange={(e)=>setSucursals(e.currentTarget.value)} >
-        {sucursal.map((s,i)=>{
-            return <option key={`map30${i}`} value={i} >{s.name}</option>
-        })}
-      </select>
-      <br/>
-
-*/

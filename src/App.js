@@ -19,8 +19,6 @@ import NotFound from './components/NotFound/NotFound';
 import Footer from './components/Footer/Footer'
 
 //mapas
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
 import Maps from './components/Map/Maps'
 
 function App() {
