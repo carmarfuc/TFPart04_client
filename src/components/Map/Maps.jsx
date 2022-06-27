@@ -14,13 +14,10 @@ export default function Maps() {
         markers={sucursal}
       />
       <br />
-      <div className="flex flex-col">
-        <h3>Codecamp Centers:</h3>
-        <button onClick={() => setSucursal({ lat: 3.420916, lng: -76.529309 })} className='btn btn-primary'>Estadium: Cl. 10 #37 - Cali, Valle del Cauca - Colombia</button>
-        <button onClick={() => setSucursal({ lat: -34.618674, lng: -58.361830 })} className='btn btn-secondary'>Juana Manso 1750 - Puerto Madero, Buenos Aires - Argentina</button>
+      <div className="items-center">
+        <button onClick={() => setSucursal({ lat: 3.420916, lng: -76.529309 })} className='btn btn-primary w-2/5 mr-4'>Estadium: Cl. 10 #37 - Cali, Valle del Cauca - Colombia</button>
+        <button onClick={() => setSucursal({ lat: -34.618674, lng: -58.361830 })} className='btn btn-primary w-2/5'>Juana Manso 1750 - Puerto Madero, Buenos Aires - Argentina</button>
       </div>
-      <br />
-      <br />
     </div>
   );
 }

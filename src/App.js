@@ -61,6 +61,7 @@ function App() {
           <Route path='/modificationForm/:id' element={<ModificationForm />} />
           <Route path='/successOrder' element={<CheckoutCart />} />
           <Route path='/password/supersecreturl/:mail' element={<Password />} />{/*AGCH*/}
+          <Route path='/maps' element={<Maps />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </div>
