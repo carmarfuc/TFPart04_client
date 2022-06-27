@@ -27,6 +27,8 @@ import Categories from './components/CreateCategory/Categories';
 import ModifyCategory from './components/CreateCategory/Modifycategory';
 import UserPage from './components/UserSite/UserPage';
 
+//mapas
+import Maps from './components/Map/Maps'
 
 function App() {
 

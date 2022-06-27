@@ -29,11 +29,13 @@ export default function NavBarBro() {
         { name: 'Home', href: '/home' },
         { name: 'Cart', href: '/cart' },
         { name: 'User panel', href: '/user' },
+        { name: 'Codecamp centers', href: '/maps' },
       ]
     : navigation = [
       { name: 'Login', href: '/' },
       { name: 'Home', href: '/home' },
       { name: 'Cart', href: '/cart' },
+      { name: 'Codecamp centers', href: '/maps' },
     ]
 
   return (
